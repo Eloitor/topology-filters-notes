@@ -8,8 +8,8 @@ math: true
 We will start defining filters and, then the elementary filter propositions will be proved by the usual way and by Lean.
 This chapter aims to define an algebraic structure with filters using two operations.
 
-Filter definition
-==================
+## Filter definition
+
 Firstly, we will introduce the filter definition of a giving set.
 
 **Definition 1.1.1** (Filter). *Let* ``X`` *be a set, a filter is a family of subsets of the power ser* ``F ⊆ 𝓟(X)`` *satisfying 
@@ -62,8 +62,8 @@ When we attend to define a principal filter in Lean, we will be required to prov
   localized "notation `P` := filter.principal" in filter
 ```
 
-Filter Order
-============
+## Filter Order
+
 Having the filter definition, we can define an order with filters using the regular inclusion order of set power subsets.
 
 **Definition 1.2.1** (Filter Order). *Let* ``X`` *be a set. We say that a filter* ``F`` *is finer than a filter* ``G`` *if* ``G ⊆ F`` *and denoted as* ``F ≤ G``.
@@ -88,12 +88,11 @@ When we attend to define an order relation in LEAN, we are required to specify t
     le_trans      := λ a b c h₁ h₂, subset.trans h₂ h₁ }
 ```
 
-Exercices
-=========
+## Exercices
+
 This subsection aims to propose some exercises that will help the reader to test the knowledge presented above. All are written in Lean and the usual way and separated into the sections we have followed.
 
-Filter definition
------------------
+### Filter definition
   (i) **Exercise 1.** Let ``X`` be a set, a filter ``F`` of ``X`` and two subsets ``V,U ⊆ X``. The intersection of the subsets is on the filter if only if both are in the filter.
   (ii) **Exercise 2.** Let ``X`` be a set, a filter ``F`` of ``X`` and two subsets ``V,U ⊆ X``. If the subset ``{x ∈ X | if x ∈ V then x ∈ U }`` is in the filter, then ``U`` is in the filter if ``V`` is in the filter.
   
