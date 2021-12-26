@@ -2,8 +2,8 @@
 math: true
 ---
 
-Filter definition and algebraic structure
-************************
+# Filter definition and algebraic structure
+
 
 We will start defining filters and, then the elementary filter propositions will be proved by the usual way and by Lean.
 This chapter aims to define an algebraic structure with filters using two operations.
@@ -26,7 +26,9 @@ Having the conceptual definition of filters, we can define this structure in Lea
 in the mathlib repository, being the current definition of filters on that repository.
 
 ```lean
-
+  import data.set.basic
+  open set
+  
   structure filter (X : Type) :=
   (sets                   : set (set X))
   (univ_sets              : set.univ ∈ sets)
@@ -50,17 +52,7 @@ We have introduced a definition of what we have supposed to be a particular type
 
 When we attend to define a principal filter in Lean, we will be required to prove that this object is a filter. The following lines are from mathlib repository, being the definition for principal filters that Lean community uses.
 
-```lean
-
-  import data.set.basic
-  open set
-
-  structure filter (X : Type) :=
-  (sets                   : set (set X))
-  (univ_sets              : set.univ ∈ sets)
-  (sets_of_superset {x y} : x ∈ sets → x ⊆ y → y ∈ sets)
-  (inter_sets {x y}       : x ∈ sets → y ∈ sets → x ∩ y ∈ sets)
-  
+```lean  
   def principal {X : Type} (s : set X) : filter X :=
   { sets              := {t | s ⊆ t},
     univ_sets         := subset_univ s,
@@ -88,17 +80,7 @@ After defining an order is natural to prove the type of order that it is. In thi
 
 When we attend to define an order relation in LEAN, we are required to specify the type of order together with the proof that defines the chosen order. The following lines are from the mathlib repository where this order is defined.
 
-```lean
-  
-  import data.set.basic
-  open set
-  
-  structure filter (X : Type) :=
-  (sets                   : set (set X))
-  (univ_sets              : set.univ ∈ sets)
-  (sets_of_superset {x y} : x ∈ sets → x ⊆ y → y ∈ sets)
-  (inter_sets {x y}       : x ∈ sets → y ∈ sets → x ∩ y ∈ sets)
-  
+```lean  
   instance : partial_order (filter α) :=
   { le            := λ f g, ∀ ⦃U : set α⦄, U ∈ g.sets → U ∈ f.sets,
     le_antisymm   := λ a b h₁ h₂, filter_eq $ subset.antisymm h₂ h₁,
@@ -116,23 +98,6 @@ Filter definition
   (ii) **Exercise 2.** Let ``X`` be a set, a filter ``F`` of ``X`` and two subsets ``V,U ⊆ X``. If the subset ``{x ∈ X | if x ∈ V then x ∈ U }`` is in the filter, then ``U`` is in the filter if ``V`` is in the filter.
   
 ```lean
-
-  import data.set.basic
-  open set
-
-  structure filter (X : Type) :=
-  (sets                   : set (set X))
-  (univ_sets              : set.univ ∈ sets)
-  (sets_of_superset {x y} : x ∈ sets → x ⊆ y → y ∈ sets)
-  (inter_sets {x y}       : x ∈ sets → y ∈ sets → x ∩ y ∈ sets)
-  
-  def principal {X : Type} (s : set X) : filter X :=
-  { sets              := {t | s ⊆ t},
-    univ_sets         := subset_univ s,
-    sets_of_superset  := assume x y hx hy, subset.trans hx hy,
-    inter_sets        := assume x y, subset_inter }
-    
-  localized "notation `P` := filter.principal" in filter
   variables {X : Type} {F : filter X}
   
   lemma exercise1 {V U} : V ∩ U ∈ F.sets ↔ V ∈ F.sets ∧ U ∈ F.sets :=
