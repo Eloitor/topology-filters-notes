@@ -20,7 +20,7 @@ all: $(html_files) $(other_files_web)
 web/%.html: src/%.md $(templates)
 
 	mkdir -p "$(@D)"
-	pandoc --lua-filter=filters/lean.lua \
+	pandoc --lua-filter=pandoc_filters/lean.lua \
 		 -f markdown+pipe_tables-tex_math_dollars-raw_tex \
 		--template templates/webpage.html \
 		--css $(shell (echo $(patsubst web/%, %, $(@D)) | sed "s/[^/]*/./g"))/styles.css \
