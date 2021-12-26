@@ -1,0 +1,94 @@
+* {
+  box-sizing: border-box;
+}
+
+header {
+  margin: 100px;
+  margin-top: 5px;
+  padding: 30px;
+  text-align: center;
+  background-color: #b5ddb3;
+  margin-bottom: 80px;
+  height:150px;
+  border-radius: 25px;
+  box-sizing: border-box; 
+}
+
+/* Column container */
+.row {  
+  display: flex;
+  flex-wrap: wrap;
+}
+/* Create two unequal columns that sits next to each other */
+/* Sidebar/right column */
+.side {
+  padding: 20px;
+}
+/* Main column */
+.main {
+  padding: 30px 5px;
+  width: 800px;
+  margin: auto;
+}
+/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 700px) {
+  .row, .navbar {   
+    flex-direction: column;
+  }
+  .main, .side {
+    padding: 15px;
+    margin: none;
+  }
+}
+
+.title{
+    text-align:center
+}
+.center{
+	display: block;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.square {
+  display: block; 
+  width: 80%;
+  background-color: lightblue;
+  padding: 10px;
+  padding-left: 12px;
+  margin: 10px 10px;
+  border: 2px solid #73AD21;
+  border-radius: 25px;
+}
+
+ul li {
+  margin-top: 10px;
+}
+
+
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+@media (min-width: 320px) and (max-width: 480px) {
+   .main {
+     width: 300px;
+   }
+   header {
+     border-radius: 5px;
+     padding: 0px;
+     margin: 0px;
+     padding-top: 10px;
+   }
+   *{
+     margin: 0px;
+     padding: 5px;
+   }
+   .row, .navbar {   
+    flex-direction: column;
+    }
+   /* CSS */
+   .square-group div {
+     width: 100%;
+   }
+}
