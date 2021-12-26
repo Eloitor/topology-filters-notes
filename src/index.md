@@ -32,6 +32,7 @@ in the mathlib repository, being the current definition of filters on that repos
   (univ_sets              : set.univ ∈ sets)
   (sets_of_superset {x y} : x ∈ sets → x ⊆ y → y ∈ sets)
   (inter_sets {x y}       : x ∈ sets → y ∈ sets → x ∩ y ∈ sets)
+```
 
 Having introduced the definition of filters, we will proceed with defining the principal filters. Those are essential to lots of topological structures as the open neighbourhood of a point.
 
@@ -67,7 +68,7 @@ When we attend to define a principal filter in Lean, we will be required to prov
     inter_sets        := assume x y, subset_inter }
     
   localized "notation `P` := filter.principal" in filter
-
+```
 
 Filter Order
 ============
@@ -103,6 +104,7 @@ When we attend to define an order relation in LEAN, we are required to specify t
     le_antisymm   := λ a b h₁ h₂, filter_eq $ subset.antisymm h₂ h₁,
     le_refl       := λ a, subset.rfl,
     le_trans      := λ a b c h₁ h₂, subset.trans h₂ h₁ }
+```
 
 Exercices
 =========
@@ -143,3 +145,4 @@ Filter definition
   begin
     sorry
   end
+```
