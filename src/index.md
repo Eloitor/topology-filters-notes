@@ -14,9 +14,9 @@ Firstly, we will introduce the filter definition of a giving set.
 
 **Definition 1.1.1** (Filter). *Let* $X$ *be a set, a filter is a family of subsets of the power ser* $\mathcal{F}\subseteq \mathcal{P}(X)$ *satisfying 
 the next properties*
-  - *The universal set is in the filter* $X\in \mathcal{F}$.
-  - *If* $E\in\mathcal{F}$, *then* $\forall A\in\mathcal{P}(X)$ *such that* $E\subseteq A$, *we have* $A\in\mathcal{F}$.
-  - *If* $E,A\in\mathcal{F}$, *then* $E\cap A\in\mathcal{F}$.
+  (i) *The universal set is in the filter* $X\in \mathcal{F}$.
+  (ii) *If* $E\in\mathcal{F}$, *then* $\forall A\in\mathcal{P}(X)$ *such that* $E\subseteq A$, *we have* $A\in\mathcal{F}$.
+  (iii) *If* $E,A\in\mathcal{F}$, *then* $E\cap A\in\mathcal{F}$.
   
 
 The reader might have noticed we have not included the empty axiom (states that the empty set cannot be in any filter) commonly used in filter definitions and required for topology filter convergence. 
