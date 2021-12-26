@@ -25,7 +25,7 @@ Assuming it, would make it impossible to define the neutral element in one of th
 Having the conceptual definition of filters, we can define this structure in Lean. The following code lines were published
 in the mathlib repository, being the current definition of filters on that repository.
 
-.. code:: lean
+``` code:: lean
 
   structure filter (X : Type) :=
   (sets                   : set (set X))
@@ -49,7 +49,7 @@ We have introduced a definition of what we have supposed to be a particular type
 
 When we attend to define a principal filter in Lean, we will be required to prove that this object is a filter. The following lines are from mathlib repository, being the definition for principal filters that Lean community uses.
 
-.. code:: lean
+``` code:: lean
 
   import data.set.basic
   open set
@@ -87,7 +87,7 @@ After defining an order is natural to prove the type of order that it is. In thi
 
 When we attend to define an order relation in LEAN, we are required to specify the type of order together with the proof that defines the chosen order. The following lines are from the mathlib repository where this order is defined.
 
-.. code:: lean
+``` code:: lean
   
   import data.set.basic
   open set
@@ -113,7 +113,7 @@ Filter definition
   (i) **Exercise 1.** Let ``X`` be a set, a filter ``F`` of ``X`` and two subsets ``V,U ⊆ X``. The intersection of the subsets is on the filter if only if both are in the filter.
   (ii) **Exercise 2.** Let ``X`` be a set, a filter ``F`` of ``X`` and two subsets ``V,U ⊆ X``. If the subset ``{x ∈ X | if x ∈ V then x ∈ U }`` is in the filter, then ``U`` is in the filter if ``V`` is in the filter.
   
-.. code:: lean
+``` code:: lean
 
   import data.set.basic
   open set
