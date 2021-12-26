@@ -20,8 +20,11 @@ function CodeBlock(block)
             current_code = current_code .. encodeString(block.text  .. "\n\n")
         end
         construct_link = lean_web_editor_url .. current_code
-        local try_me_link = pandoc.Link('Try me', construct_link)
-        return pandoc.Div{block, pandoc.Para{ try_me_link} }
+        local attr = pandoc.Attr("", {"try-me-link"})
+        local try_me_link = pandoc.Link('Try me', construct_link, "", attr)
+
+
+        return pandoc.Div({ pandoc.Para{ try_me_link}, block }, pandoc.Attr("", {"try-me-container"}))
     end
 end
 

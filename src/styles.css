@@ -65,6 +65,21 @@ ul li {
   margin-top: 10px;
 }
 
+.try-me-container {
+  border: 1px solid #ccc;
+  background-color: #eee;
+  border-radius: 5px;
+  padding-left: 2%;
+  margin-right: 5%;
+}
+
+.try-me-link {
+  text-decoration: none;
+  padding: 2px;
+  border-radius: 5px;
+  margin-right: 5%;
+  float: right;
+} 
 
 /* 
   ##Device = Most of the Smartphones Mobiles (Portrait)

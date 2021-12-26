@@ -15,6 +15,10 @@ $$\int_0^1 x^2 dx$$
 example (x : ℕ) : x = x :=
 begin
   refl,
+
+
+
+
 end
 ```
 
