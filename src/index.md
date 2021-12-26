@@ -95,7 +95,7 @@ This subsection aims to propose some exercises that will help the reader to test
 
 ### Filter definition
   (i) **Exercise 1.** Let $X$ be a set, a filter $\mathcal{F}$ of $X$ and two subsets $V,U \subseteq X$. The intersection of the subsets is on the filter if only if both are in the filter.
-```lean {.lean .skip}
+```{.lean .skip}
   variables {X : Type} {F : filter X}
   
   lemma exercise1 {V U} : V ∩ U ∈ F.sets ↔ V ∈ F.sets ∧ U ∈ F.sets :=
@@ -105,7 +105,7 @@ This subsection aims to propose some exercises that will help the reader to test
 ```
   (ii) **Exercise 2.** Let $X$ be a set, a filter $\mathcal{F}$ of $X$ and two subsets $V,U \subseteq X$. If the subset $\left\{ x\in X\ |\ \textup{if} x\in V\textup{ then } x\in U\right\}$ is in the filter, then $U$ is in the filter if $V$ is in the filter.
   
-```lean {.lean .skip}  
+```{.lean .skip}  
   lemma exercise2 {V U} (h : {x | x ∈ V → x ∈ U} ∈ F.sets) : 
     V ∈ F.sets → U ∈ F.sets :=
   begin
