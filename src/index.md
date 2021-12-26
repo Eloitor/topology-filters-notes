@@ -38,17 +38,17 @@ in the mathlib repository, being the current definition of filters on that repos
 
 Having introduced the definition of filters, we will proceed with defining the principal filters. Those are essential to lots of topological structures as the open neighbourhood of a point.
 
-**Definition 1.1.2** (Principal Filter). *Let* ``X`` *a set and* ``A ⊆ X`` *a subset. We define the principal filter as the subset* ``{t ∈ 𝓟(X) | s ⊆ t}``, *and from now onwards, it will be denoted as* ``P(A)``.
+**Definition 1.1.2** (Principal Filter). *Let* $X$ *a set and* $A\subseteq X$ *a subset. We define the principal filter as the subset* $$\left\{t\in\mathcal{P}(X)\ |\ s\ubseteq t\right\}$ *that, from now onwards, will be denoted as* $P(A)$.
 
 We have introduced a definition of what we have supposed to be a particular type of filter. Now, we should prove that it fulfils the conditions for being a filter.
 
-**Proposition 1.1.3** *Let* ``X`` *a set. For all* ``A ⊆ X`` *subsets, the principal filter of* ``A`` *is a filter.*
+**Proposition 1.1.3** *Let* $X$ *a set. For all* $A\subseteq X$ *subsets, the principal filter of* $A$ *is a filter.*
 
 *Proof*. We will prove that a principal filter is a filter by proving the three properties of filters.
 
-  (i) It is clear that ``A ⊆ X``. Then, by definition, we have ``X ∈ P(A)``.
-  (ii) If we have ``E ∈ P(A)``, by definition, we also have ``A ⊆ E``. For all ``B  𝓟(X)`` such that ``E ⊆ B``, we will have ``A ⊆ B`` because of fundamental set propositions. Then we can conclude that ``B ∈ P(A)``.
-  (iii) If we have ``E,B ∈ P(A)``, by definition, we will have ``A ⊆ E`` and ``A ⊆ B``. Because ``A`` is contained in both subsets, we also have ``A ⊆ E ∩ B``, which led us to ``E ∩ B ∈ P(A)``. ``∎`` 
+  (i) It is clear that $A\subseteq X$. Then, by definition, we have $X\in  P(A)$.
+  (ii) If we have $E \in P(A)$, by definition, we also have $A \subseteq E$. For all $B\in\mathcal{P}(X)$ such that $E\subseteq B$, we will have $A\subseteq B$ because of fundamental set propositions. Then we can conclude that $B \in P(A)$.
+  (iii) If we have $B,C \in P(A)$, by definition, we will have $A \subseteq B$ and $A\subseteq C$. Because $A$ is contained in both subsets, we also have $A\subseteq B \cap C$, which led us to $B \cap C \in P(A)$. $\square$ 
 
 When we attend to define a principal filter in Lean, we will be required to prove that this object is a filter. The following lines are from mathlib repository, being the definition for principal filters that Lean community uses.
 
@@ -66,7 +66,7 @@ When we attend to define a principal filter in Lean, we will be required to prov
 
 Having the filter definition, we can define an order with filters using the regular inclusion order of set power subsets.
 
-**Definition 1.2.1** (Filter Order). *Let* ``X`` *be a set. We say that a filter* ``F`` *is finer than a filter* ``G`` *if* ``G ⊆ F`` *and denoted as* ``F ≤ G``.
+**Definition 1.2.1** (Filter Order). *Let* $X$ *be a set. We say that a filter* $\mathcal{F}$ *is finer than a filter* $\mathcal{V}$ *if* $\mathcal{V}\subseteq \mathcal{F}$ *and denoted as* $\mathcal{F}\leq\mathcal{V}$.
 
 After defining an order is natural to prove the type of order that it is. In this case, we will prove that this is a partial order.
 
@@ -74,9 +74,9 @@ After defining an order is natural to prove the type of order that it is. In thi
 
 *Proof*. To prove the statement, we will see that this relation is reflexive, antisymmetric and transitive.
 
-  (i) Giving a filter ``F``. It is clear that ``F ⊆ F`` then, by definition, we have ``F ≤ F``.
-  (ii) Giving two filters ``F`` and ``G`` satisfying ``F ≤ G`` and ``G ≤ F``. Using the order definition, we have ``G ⊆ F`` and ``F ⊆ G`` consequently, ``F=G`` by the double inclusion lemma.
-  (iii) Let three filters ``F``, ``G`` and ``T`` satisfying ``F ≤ G`` ``G ≤ T``. By definition, we have ``G ⊆ F`` and ``T ⊆ G``. Using the partial order of subsets, we have ``T ⊆ F`` concluding ``F ≤ T``. ``∎``
+  (i) Giving a filter $\mathcal{F}$. It is clear that $\mathcal{F}\subseteq\mathcal{F}$ then, by definition, we have $\mathcal{F}\leq\mathcal{F}$.
+  (ii) Giving two filters $\mathcal{F}$ and $\mathcal{V}$ satisfying $\mathcal{F}\leq \mathcal{V}$ and $\mathcal{V}\leq\mathcal{F}$. Using the order definition, we have $\mathcal{V}\subseteq\mathcal{F}$ and $\mathcal{F}\subseteq\mathcal{V}$ consequently, $\mathcal{F}=\mathcal{V}$ by the double inclusion lemma.
+  (iii) Let three filters $\mathcal{F}$, $\mathcal{V}$ and $\mathcal{T}$ satisfying $\mathcal{F}\leq\mathcal{V}$ and $\mathcal{V}\leq\mathcal{T}$. By definition, we have $\mathcal{V}\subseteq\mathcal{F}$ and $\mathcal{T}\subseteq\mathcal{V}$. Using the partial order of subsets, we have $\mathcal{T}\subseteq \mathcal{F}$ concluding $\mathcal{F}\leq\mathcal{T}. $\squere$
 
 When we attend to define an order relation in LEAN, we are required to specify the type of order together with the proof that defines the chosen order. The following lines are from the mathlib repository where this order is defined.
 
@@ -93,18 +93,19 @@ When we attend to define an order relation in LEAN, we are required to specify t
 This subsection aims to propose some exercises that will help the reader to test the knowledge presented above. All are written in Lean and the usual way and separated into the sections we have followed.
 
 ### Filter definition
-  (i) **Exercise 1.** Let ``X`` be a set, a filter ``F`` of ``X`` and two subsets ``V,U ⊆ X``. The intersection of the subsets is on the filter if only if both are in the filter.
-  (ii) **Exercise 2.** Let ``X`` be a set, a filter ``F`` of ``X`` and two subsets ``V,U ⊆ X``. If the subset ``{x ∈ X | if x ∈ V then x ∈ U }`` is in the filter, then ``U`` is in the filter if ``V`` is in the filter.
-  
-```lean
+  (i) **Exercise 1.** Let $X$ be a set, a filter $\mathcal{F}$ of $X$ and two subsets $V,U \subseteq X$. The intersection of the subsets is on the filter if only if both are in the filter.
+```lean {.lean .skip}
   variables {X : Type} {F : filter X}
   
   lemma exercise1 {V U} : V ∩ U ∈ F.sets ↔ V ∈ F.sets ∧ U ∈ F.sets :=
   begin
     sorry
   end
+```
+  (ii) **Exercise 2.** Let $X$ be a set, a filter $\mathcal{F}$ of $X$ and two subsets $V,U \subseteq X$. If the subset $\left\{ x\in X\ |\ \textup{if} x\in V\textup{ then } x\in U\right\}$ is in the filter, then $U$ is in the filter if $V$ is in the filter.
   
-  lemma exercise2 {V U} (h : {x | x ∈ V ↔ x ∈ U} ∈ F.sets) : 
+```lean {.lean.skip}  
+  lemma exercise2 {V U} (h : {x | x ∈ V → x ∈ U} ∈ F.sets) : 
     V ∈ F.sets → U ∈ F.sets :=
   begin
     sorry
