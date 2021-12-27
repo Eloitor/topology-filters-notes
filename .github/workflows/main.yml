@@ -19,9 +19,9 @@ jobs:
           apk add --no-cache git make rsync
       - name: Install python and panflute
         uses: actions/setup-python@v2
-          with:
-            python-version: '3.x'
-            cache: 'pip'
+        with:
+          python-version: '3.x'
+          cache: 'pip'
       - run: pip install -r requirements.txt
       - name: Clone repository
         uses: actions/checkout@v2
