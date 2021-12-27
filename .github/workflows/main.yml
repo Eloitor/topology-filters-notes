@@ -17,12 +17,12 @@ jobs:
       - name: Install dependencies
         run: |
           apk add --no-cache git make rsync
-          apk add --no-cache py3-pip
+          apk add --no-cache python3 py3-pip
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
-        #  cache: 'pip'
+      # - uses: actions/setup-python@v2
+      #   with:
+      #     python-version: '3.x'
+      #   #  cache: 'pip'
       - run: pip install -r requirements.txt
       - name: Build
         run: |
