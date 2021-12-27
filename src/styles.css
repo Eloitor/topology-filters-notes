@@ -142,3 +142,19 @@ div.alpha-list ol > li:before {
   content:"(" counter(alpha, lower-alpha)") "
 }
 
+#TOC ul {
+  counter-reset: item
+}
+
+#TOC li {
+  display: block
+}
+
+#TOC li:before {
+  content: counters(item, ".")" ";
+  counter-increment: item;
+}
+
+.toc-section-number {
+  display: none;
+}
