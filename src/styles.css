@@ -125,6 +125,14 @@ div.roman-list ol li {
   position: relative;
 }
 
+div.roman-list ol > li::before {
+  position: relative;
+  left: -0.5em;  /* adjust for distance of the counter */
+  width: 2em;
+  text-align: right;
+  display: inline-block;
+}
+
 /* alpha-list style 
   (a) First
   (b) Second
