@@ -1,5 +1,6 @@
 ---
 math: true
+number-sections: true
 ---
 
 # Filter definition and algebraic structure
