@@ -1,2 +1,3 @@
 # topology-filters-notes
- Notes
+Our notes could be found at https://eloitor.github.io/topology-filters-notes/definitions
+ 
