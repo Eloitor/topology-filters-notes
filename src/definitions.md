@@ -1,4 +1,5 @@
 ---
+title: definitions
 math: true
 number-sections: true
 ---
