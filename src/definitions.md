@@ -1,10 +1,10 @@
 ---
-title: Definicions
+my-title: Definicions
 math: true
 number-sections: true
 ---
 
-# Filter definition and algebraic structure
+# Filter definition and ordered structure
 
 
 We will start defining filters and, then the elementary filter propositions will be proved by the usual way and by Lean.
@@ -38,6 +38,14 @@ in the mathlib repository, being the current definition of filters on that repos
   (univ_sets              : set.univ ∈ sets)
   (sets_of_superset {x y} : x ∈ sets → x ⊆ y → y ∈ sets)
   (inter_sets {x y}       : x ∈ sets → y ∈ sets → x ∩ y ∈ sets)
+```
+
+As we have just seen, the concept of filter in Lean is a structure. Conceptually we understand that two filters are equal if and only if both have the same subset associated, but in Lean code we will need to prove this statement. This trivial lemma will be useful for future proofs.
+
+```lean
+  variable {X : Type}
+  lemma filter_eq : ∀ {f g : filter X}, f.sets = g.sets → f = g
+  | ⟨a, _, _, _⟩ ⟨._, _, _, _⟩ rfl := rfl
 ```
 
 Having introduced the definition of filters, we will proceed with defining the principal filters. Those are essential to lots of topological structures as the open neighbourhood of a point.
@@ -85,12 +93,16 @@ After defining an order is natural to prove the type of order that it is. In thi
 When we attend to define an order relation in LEAN, we are required to specify the type of order together with the proof that defines the chosen order. The following lines are from the mathlib repository where this order is defined.
 
 ```lean  
-  instance : partial_order (filter α) :=
+  instance : partial_order (filter X) :=
   { le            := λ f g, ∀ ⦃U : set α⦄, U ∈ g.sets → U ∈ f.sets,
     le_antisymm   := λ a b h₁ h₂, filter_eq $ subset.antisymm h₂ h₁,
     le_refl       := λ a, subset.rfl,
     le_trans      := λ a b c h₁ h₂, subset.trans h₂ h₁ }
 ```
+
+## Lattice Structure
+
+Once we have define an order, we can naturally ask if this set has a lattice associated. From the filter axioms 
 
 ## Exercices
 
@@ -99,7 +111,7 @@ This subsection aims to propose some exercises that will help the reader to test
 ### Filter definition
   (i) **Exercise 1.** Let $X$ be a set, a filter $\mathcal{F}$ of $X$ and two subsets $V,U \subseteq X$. The intersection of the subsets is on the filter if only if both are in the filter.
 ```{.lean .skip}
-  variables {X : Type} {F : filter X}
+  variable {F : filter X}
   
   lemma exercise1 {V U} : V ∩ U ∈ F.sets ↔ V ∈ F.sets ∧ U ∈ F.sets :=
   begin
@@ -109,6 +121,8 @@ This subsection aims to propose some exercises that will help the reader to test
   (ii) **Exercise 2.** Let $X$ be a set, a filter $\mathcal{F}$ of $X$ and two subsets $V,U \subseteq X$. If the subset $\left\{ x\in X\ |\ \textup{if} x\in V\textup{ then } x\in U\right\}$ is in the filter, then $U$ is in the filter if $V$ is in the filter.
   
 ```{.lean .skip}  
+  variable {F : filter X}
+
   lemma exercise2 {V U} (h : {x | x ∈ V → x ∈ U} ∈ F.sets) : 
     V ∈ F.sets → U ∈ F.sets :=
   begin
