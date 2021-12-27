@@ -3,79 +3,100 @@
   <!ENTITY charsdelim "_;.&#34;(){}@">
   <!ENTITY wordsep "(?=[&charsdelim;]|\s|$)">
 ]>
-<language name="lean" version="9" kateversion="5.0" section="Sources" extensions="*.lean" mimetype="text/x-lean" author="Eloi Torrents" license="LGPL">
+<language name="lean" version="0" kateversion="5.0" section="Sources" extensions="*.lean" mimetype="text/x-lean" author="Eloi Torrents" license="LGPL">
   <highlighting>
+    <list name="imports">
+      <item>import</item>
+      <!-- <item regexp="import\s+[a-zA-Z0-9_.]+\s*$" format="import" /> -->
+      <item>namespace</item>
+      <item>open</item>
+    </list>
     <list name="reserved keywords">
+      <item>abbreviation</item>
       <item>assume</item>
+      <item>axiom</item>
       <item>begin</item>
+      <item>by</item>
+      <item>class</item>
+      <item>def</item>
+      <item>example</item>
       <item>end</item>
+      <item>instance</item>
+      <item>lemma</item>
+      <item>meta</item>
+      <item>structure</item>
+      <item>universe</item>
       <item>variable</item>
       <item>variables</item>
-      <item>lemma</item>
-      <item>structure</item>
-      <item>def</item>
-      <item>Type</item>
-      <item>#check</item>
+    </list>
+    <list name="preprocessor">
       <item>#eval</item>
       <item>#find</item>
-      <item>abstract</item>
-      <item>codata</item>
-      <item>coinductive</item>
-      <item>constructor</item>
-      <item>data</item>
-      <item>do</item>
-      <item>eta-equality</item>
-      <item>field</item>
-      <item>forall</item>
-      <item>hiding</item>
-      <item>import</item>
-      <item>in</item>
-      <item>inductive</item>
-      <item>infix</item>
-      <item>infixl</item>
-      <item>infixr</item>
-      <item>instance</item>
-      <item>interleaved</item>
-      <item>let</item>
-      <item>macro</item>
-      <item>module</item>
-      <item>mutual</item>
-      <item>no-eta-equality</item>
-      <item>open</item>
-      <item>overlap</item>
-      <item>pattern</item>
-      <item>postulate</item>
-      <item>primitive</item>
-      <item>private</item>
-      <item>public</item>
-      <item>quote</item>
-      <item>quoteTerm</item>
-      <item>record</item>
-      <item>renaming</item>
-      <item>rewrite</item>
-      <item>syntax</item>
-      <item>tactic</item>
-      <item>to</item>
-      <item>unquote</item>
-      <item>unquoteDecl</item>
-      <item>unquoteDef</item>
-      <item>using</item>
-      <item>variable</item>
-      <item>where</item>
-      <item>with</item>
+      <item>#check</item>
     </list>
+    <list name="errors">
+      <item>sorry</item>
+    </list>
+    <list name="tactics">
+      <item>abel</item>
+      <item>abstract</item>
+      <item>ac_mono</item>
+      <item>ac_refl</item>
+      <item>all_goals</item>
+      <item>any_goals</item>
+      <item>apply</item>
+      <item>apply_assumption</item>
+      <item>apply_auto_param</item>
+      <item>apply_congr</item>
+      <item>apply_fun</item>
+      <item>apply_instance</item>
+      <item>apply_opt_param</item>
+      <item>apply_rules</item>
+      <item>apply_with</item>
+      <item>assoc_rewrite</item>
+      <item>assume</item>
+      <item>assumtion</item>
+      <item>assumtion'</item>
+      <item>async</item>
+      <item>by_cases</item>
+      <item>by_contradiction</item>
+      <item>by_contra</item>
+      <item>by_contra'</item>
+      <item>cancel_denoms</item>
+      <item>case</item>
+      <item>cases</item>
+      <item>cases_matching</item>
+      <item>casesm</item>
+      <item>cases_type</item>
+      <!-- category_theory.elementwise_of / category_theory.reassoc_of -->
+      <item>cc</item>
+      <item>change</item>
+      <item>change'</item>
+      <item>choose</item>
+      <item>classical</item>
+      <item>clear</item>
+      <item>clear'</item>
+      <item>clear_</item>
+      <item>clear_aux_decl</item>
+      <!-- TODO: complete: https://leanprover-community.github.io/mathlib_docs/tactics.html -->
+      <item>split</item>
+    </list>
+      
     <contexts>
       <context attribute="Normal" lineEndContext="#stay" name="code">
-        <RegExpr attribute="Pragma"  context="#stay" String="\{-#.*#-\}" />
         <keyword attribute="Keyword" context="#stay" String="reserved keywords" />
-        <RegExpr attribute="Type"    context="#stay" String="(?:Prop[₀-₉]+|Prop[0-9]*|Set[₀-₉]+|Set[0-9]*)&wordsep;" />
+        <keyword attribute="Preprocessor" context="#stay" String="preprocessor" />
+        <keyword attribute="Error" context="#stay" String="errors" />
+        <keyword attribute="Tactic" context="#stay" String="tactics" />
+        <keyword attribute="Import" context="#stay" String="imports" />
+        <RegExpr attribute="Type"    context="#stay" String="(?:Prop[₀-₉]+|Prop[0-9]*|Type[₀-₉]+|Type[0-9]*)&wordsep;" />
         <RegExpr attribute="Special" context="#stay" String="(?:\-&gt;|→|∀|λ|:|=|\|)&wordsep;" />
         <RegExpr attribute="Float"   context="#stay" String="\d+(?:(?:\.\d+)?[eE][+-]?\d+|\.\d+)&wordsep;" />
         <RegExpr attribute="Decimal" context="#stay" String="[0-9]+&wordsep;" />
         <DetectChar attribute="Char"   context="char"   char="'" />
         <DetectChar attribute="String" context="string" char="&quot;" />
         <Detect2Chars attribute="Comment" context="comment"  char="-"  char1="-" />
-        <Detect2Chars attribute="Comment" context="comments" char="{" char1="-" beginRegion="CommentBlock" />
+        <Detect2Chars attribute="Comment" context="comments" char="/" char1="-" beginRegion="CommentBlock" />
         <Detect2Chars attribute="Hole"    context="hole"     char="{" char1="!" />
         <!-- delimiters which cannot be part of an identifier, or
              backslash which starts a lambda expression -->
@@ -89,8 +110,8 @@
         <IncludeRules context="##Comments" />
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="comments" noIndentationBasedFolding="1">
-        <Detect2Chars attribute="Comment" context="comments" char="{" char1="-" beginRegion="CommentBlock" /> <!-- for nested comments -->
-        <Detect2Chars attribute="Comment" context="#pop" char="-" char1="}" endRegion="CommentBlock" />
+        <Detect2Chars attribute="Comment" context="comments" char="/-" char1="-" beginRegion="CommentBlock" /> <!-- for nested comments -->
+        <Detect2Chars attribute="Comment" context="#pop" char="-" char1="/" endRegion="CommentBlock" />
         <IncludeRules context="##Comments" />
       </context>
       <context attribute="Hole" lineEndContext="#stay" name="hole">
@@ -108,7 +129,7 @@
     <itemDatas>
       <itemData name="Normal"   defStyleNum="dsNormal"   spellChecking="false" />
       <itemData name="Comment"  defStyleNum="dsComment" />
-      <itemData name="Pragma"   defStyleNum="dsPreprocessor" spellChecking="false" />
+      <itemData name="Preprocessor"   defStyleNum="dsPreprocessor" spellChecking="false" />
       <itemData name="Hole"     defStyleNum="dsOthers"   spellChecking="false" />
       <itemData name="Keyword"  defStyleNum="dsKeyword"  spellChecking="false" />
       <itemData name="Type"     defStyleNum="dsDataType" spellChecking="false" />
@@ -117,6 +138,9 @@
       <itemData name="Float"    defStyleNum="dsFloat"    spellChecking="false" />
       <itemData name="Char"     defStyleNum="dsChar"     spellChecking="false" />
       <itemData name="String"   defStyleNum="dsString" />
+      <itemData name="Error"    defStyleNum="dsError"    spellChecking="false" />
+      <itemData name="Tactic"   defStyleNum="dsControlFlow"   spellChecking="false" />
+      <itemData name="Import"   defStyleNum="dsKeyword"   spellChecking="false" />
     </itemDatas>
   </highlighting>
   <general>
