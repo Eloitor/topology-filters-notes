@@ -17,7 +17,9 @@ jobs:
       - name: Install dependencies
         run: |
           apk add --no-cache git make rsync
-          apk add --no-cache python3 py3-pip
+          apk add --no-cache --update python3 py3-pip  && ln -sf python3 /usr/bin/python
+          python3 -m ensurepip
+          pip3 install --upgrade pip setuptools
       - uses: actions/checkout@v2
       # - uses: actions/setup-python@v2
       #   with:
