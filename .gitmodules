@@ -1,0 +1,3 @@
+[submodule "pandoc_filters/panflute-filters"]
+	path = pandoc_filters/panflute-filters
+	url = https://github.com/sergiocorreia/panflute-filters.git

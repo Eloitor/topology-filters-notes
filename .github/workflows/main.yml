@@ -17,12 +17,15 @@ jobs:
       - name: Install dependencies
         run: |
           apk add --no-cache git make rsync
-          pandoc --version
+          apk add --no-cache python3 py-pip
+          pip3 install --no-cache-dir panflute
       - uses: actions/checkout@v2
       - name: Build
         run: |
           make clean
           make
+          make toc
+          cp toc.html web/toc.html
       - name: Save build files
         uses: actions/upload-artifact@v2
         with:

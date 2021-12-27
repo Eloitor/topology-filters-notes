@@ -1,3 +1,16 @@
+#### CONFIGURATION ####
+
+title = "Topology Filters Notes"
+
+# This files will be included in the table of contents.
+content_files = "src/definitions.md \
+				 src/structures.md"
+
+#### END CONFIGURATION ####
+
+content_files_comma_separated = $(shell echo ${content_files} | sed 's/ /,/g')
+
+# All files included in the src/ directory will be compiled.
 md_files = $(shell find src/ -type f -name '*.md')
 html_files = $(patsubst src/%.md, web/%.html, $(md_files))
 templates = $(shell find templates/ -type f -name '*.html')
@@ -25,7 +38,7 @@ web/%.html: src/%.md $(templates)
 		--template templates/webpage.html \
 		--css $(shell (echo $(patsubst web/%, %, $(@D)) | sed "s/[^/]*/./g"))/styles.css \
 		-V root=$(shell (echo $(patsubst web/%, %, $(@D)) | sed "s/[^/]*/./g")) \
-		--metadata title="Topology Filters Notes" \
+		--metadata title=${title} \
 		--syntax-definition=lean_syntax.xml \
 		--toc \
 		--number-sections \
@@ -45,3 +58,9 @@ auto:
 	while sleep 0.1; do echo 'src' | entr -d -z make all && \
 		echo 'templates' | entr -d -z make all; \
 	done)
+
+toc:
+	pandoc --number-sections --file-scope \
+	 --toc -s $(subst ",,$(content_files)) | pandoc -s -f html -o toc.html \
+	 -M files=${content_files_comma_separated} \
+	 -F fixtoc.py
