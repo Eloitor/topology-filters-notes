@@ -7,12 +7,13 @@ Topology Filters
    introduction
 ```
 
-.. toctree::
-   :glob:
-   :numbered: 
-   :maxdepth: 2
+``` toctree
+---
+maxdepth: 2
+---
    
-   day*
+   definitions
+```
 
 .. toctree::
    :maxdepth: 1
