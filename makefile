@@ -27,6 +27,7 @@ web/%.html: src/%.md $(templates)
 		-V root=$(shell (echo $(patsubst web/%, %, $(@D)) | sed "s/[^/]*/./g")) \
 		--metadata title="Topology Filters Notes" \
 		--toc \
+		--number-sections \
 		$< -o $@
 
 web/%: src/%
