@@ -107,3 +107,37 @@ ul li {
      width: 100%;
    }
 }
+
+/* roman-list style 
+  (i) First
+  (ii) Second
+  (iii) Third
+*/
+div.roman-list ol {
+  counter-reset: roman;
+}
+div.roman-list ol > li:before {
+  counter-increment: roman;
+  content:"(" counter(roman, lower-roman)") "
+}
+div.roman-list ol li {
+  list-style: none;
+  position: relative;
+}
+
+/* alpha-list style 
+  (a) First
+  (b) Second
+  (c) Third
+*/
+div.alpha-list ol {
+  counter-reset: alpha
+}
+div.alpha-list ol li {
+  list-style: none;
+  position: relative;
+}
+div.alpha-list ol > li:before {
+  counter-increment: alpha;
+  content:"(" counter(alpha, lower-alpha)") "
+}
