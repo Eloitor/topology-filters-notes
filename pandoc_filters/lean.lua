@@ -17,6 +17,7 @@ function CodeBlock(block)
 
         local old_code = current_code
         local skip_code = false
+        local hide_code = false
         link_code = current_code .. block.text
 
         for index, value in ipairs(block.classes) do
@@ -25,6 +26,9 @@ function CodeBlock(block)
             end
             if value == "skip" then
                 skip_code = true
+            end
+            if value == "hide" then
+                hide_code = true
             end
         end
 
@@ -38,9 +42,12 @@ function CodeBlock(block)
         -- If the code is skipped, we reset the current code
         current_code = old_code 
 
+        if hide_code then
+            return {}
+        end
+
         local attr = pandoc.Attr("", {"try-me-link"})
         local try_me_link = pandoc.Link('Try me', construct_link, "", attr)
-
         return pandoc.Div({ pandoc.Para{ try_me_link}, block }, pandoc.Attr("", {"try-me-container"}))
     end
 end
