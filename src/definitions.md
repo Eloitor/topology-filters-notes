@@ -4,7 +4,7 @@ math: true
 number-sections: true
 ---
 
-# Filter definition and ordered structure
+# Filter definition and basics examples
 
 
 We will start defining filters and, then the elementary filter propositions will be proved by the usual way and by Lean.
