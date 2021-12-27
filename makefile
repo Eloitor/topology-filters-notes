@@ -26,6 +26,7 @@ web/%.html: src/%.md $(templates)
 		--css $(shell (echo $(patsubst web/%, %, $(@D)) | sed "s/[^/]*/./g"))/styles.css \
 		-V root=$(shell (echo $(patsubst web/%, %, $(@D)) | sed "s/[^/]*/./g")) \
 		--metadata title="Topology Filters Notes" \
+		--syntax-definition=lean_syntax.xml \
 		--toc \
 		--number-sections \
 		$< -o $@
