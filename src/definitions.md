@@ -104,10 +104,6 @@ When we attend to define an order relation in LEAN, we are required to specify t
     le_trans      := λ a b c h₁ h₂, subset.trans h₂ h₁ }
 ```
 
-## Lattice Structure
-
-Once we have define an order, we can naturally ask if this set has a lattice associated. From the filter axioms 
-
 ## Exercices
 
 This subsection aims to propose some exercises that will help the reader to test the knowledge presented above. All are written in Lean and the usual way and separated into the sections we have followed.
