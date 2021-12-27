@@ -17,9 +17,14 @@ jobs:
       - name: Install dependencies
         run: |
           apk add --no-cache git make rsync
-          apk add --no-cache python3 py-pip
-          pip3 install --no-cache-dir panflute
-      - uses: actions/checkout@v2
+      - name: Install python and panflute
+        uses: actions/setup-python@v2
+          with:
+            python-version: '3.x'
+            cache: 'pip'
+      - run: pip install -r requirements.txt
+      - name: Clone repository
+        uses: actions/checkout@v2
       - name: Build
         run: |
           make clean
