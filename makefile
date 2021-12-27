@@ -61,6 +61,8 @@ auto:
 
 toc:
 	pandoc --number-sections --file-scope \
-	 --toc -s $(subst ",,$(content_files)) | pandoc -s -f html -o toc.html \
+	 --toc -s $(subst ",,$(content_files)) > toc-tmp.html
+	
+	pandoc -s -f html -o toc.html \
 	 -M files=${content_files_comma_separated} \
-	 -F fixtoc.py
+	 -F fixtoc.py toc-tmp.html
