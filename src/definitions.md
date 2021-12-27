@@ -58,9 +58,11 @@ We have introduced a definition of what we have supposed to be a particular type
 
 *Proof*. We will prove that a principal filter is a filter by proving the three properties of filters.
 
-  (i) It is clear that $A\subseteq X$. Then, by definition, we have $X\in  P(A)$.
-  (ii) If we have $E \in P(A)$, by definition, we also have $A \subseteq E$. For all $B\in\mathcal{P}(X)$ such that $E\subseteq B$, we will have $A\subseteq B$ because of fundamental set propositions. Then we can conclude that $B \in P(A)$.
-  (iii) If we have $B,C \in P(A)$, by definition, we will have $A \subseteq B$ and $A\subseteq C$. Because $A$ is contained in both subsets, we also have $A\subseteq B \cap C$, which led us to $B \cap C \in P(A)$. $\square$ 
+:::{.roman-list}
+1. It is clear that $A\subseteq X$. Then, by definition, we have $X\in  P(A)$.  
+2. If we have $E \in P(A)$, by definition, we also have $A \subseteq E$. For all $B\in\mathcal{P}(X)$ such that $E\subseteq B$, we will have $A\subseteq B$ because of fundamental set propositions. Then we can conclude that $B \in P(A)$.
+3. If we have $B,C \in P(A)$, by definition, we will have $A \subseteq B$ and $A\subseteq C$. Because $A$ is contained in both subsets, we also have $A\subseteq B \cap C$, which led us to $B \cap C \in P(A)$. $\square$ 
+:::
 
 When we attend to define a principal filter in Lean, we will be required to prove that this object is a filter. The following lines are from mathlib repository, being the definition for principal filters that Lean community uses.
 
@@ -86,15 +88,17 @@ After defining an order is natural to prove the type of order that it is. In thi
 
 *Proof*. To prove the statement, we will see that this relation is reflexive, antisymmetric and transitive.
 
-  (i) Giving a filter $\mathcal{F}$. It is clear that $\mathcal{F}\subseteq\mathcal{F}$ then, by definition, we have $\mathcal{F}\leq\mathcal{F}$.
-  (ii) Giving two filters $\mathcal{F}$ and $\mathcal{V}$ satisfying $\mathcal{F}\leq \mathcal{V}$ and $\mathcal{V}\leq\mathcal{F}$. Using the order definition, we have $\mathcal{V}\subseteq\mathcal{F}$ and $\mathcal{F}\subseteq\mathcal{V}$ consequently, $\mathcal{F}=\mathcal{V}$ by the double inclusion lemma.
-  (iii) Let three filters $\mathcal{F}$, $\mathcal{V}$ and $\mathcal{T}$ satisfying $\mathcal{F}\leq\mathcal{V}$ and $\mathcal{V}\leq\mathcal{T}$. By definition, we have $\mathcal{V}\subseteq\mathcal{F}$ and $\mathcal{T}\subseteq\mathcal{V}$. Using the partial order of subsets, we have $\mathcal{T}\subseteq \mathcal{F}$ concluding $\mathcal{F}\leq\mathcal{T}. $\squere$
+:::{.roman-list}
+1. Giving a filter $\mathcal{F}$. It is clear that $\mathcal{F}\subseteq\mathcal{F}$ then, by definition, we have $\mathcal{F}\leq\mathcal{F}$.
+2. Giving two filters $\mathcal{F}$ and $\mathcal{V}$ satisfying $\mathcal{F}\leq \mathcal{V}$ and $\mathcal{V}\leq\mathcal{F}$. Using the order definition, we have $\mathcal{V}\subseteq\mathcal{F}$ and $\mathcal{F}\subseteq\mathcal{V}$ consequently, $\mathcal{F}=\mathcal{V}$ by the double inclusion lemma.
+3. Let three filters $\mathcal{F}$, $\mathcal{V}$ and $\mathcal{T}$ satisfying $\mathcal{F}\leq\mathcal{V}$ and $\mathcal{V}\leq\mathcal{T}$. By definition, we have $\mathcal{V}\subseteq\mathcal{F}$ and $\mathcal{T}\subseteq\mathcal{V}$. Using the partial order of subsets, we have $\mathcal{T}\subseteq \mathcal{F}$ concluding $\mathcal{F}\leq\mathcal{T}. $\squere$
+:::
 
 When we attend to define an order relation in LEAN, we are required to specify the type of order together with the proof that defines the chosen order. The following lines are from the mathlib repository where this order is defined.
 
 ```lean  
   instance : partial_order (filter X) :=
-  { le            := λ f g, ∀ ⦃U : set α⦄, U ∈ g.sets → U ∈ f.sets,
+  { le            := λ f g, ∀ ⦃U : set X⦄, U ∈ g.sets → U ∈ f.sets,
     le_antisymm   := λ a b h₁ h₂, filter_eq $ subset.antisymm h₂ h₁,
     le_refl       := λ a, subset.rfl,
     le_trans      := λ a b c h₁ h₂, subset.trans h₂ h₁ }
@@ -109,7 +113,8 @@ Once we have define an order, we can naturally ask if this set has a lattice ass
 This subsection aims to propose some exercises that will help the reader to test the knowledge presented above. All are written in Lean and the usual way and separated into the sections we have followed.
 
 ### Filter definition
-  (i) **Exercise 1.** Let $X$ be a set, a filter $\mathcal{F}$ of $X$ and two subsets $V,U \subseteq X$. The intersection of the subsets is on the filter if only if both are in the filter.
+:::{.roman-list}
+  1. **Exercise 1.** Let $X$ be a set, a filter $\mathcal{F}$ of $X$ and two subsets $V,U \subseteq X$. The intersection of the subsets is on the filter if only if both are in the filter.
 ```{.lean .skip}
   variable {F : filter X}
   
@@ -118,7 +123,7 @@ This subsection aims to propose some exercises that will help the reader to test
     sorry
   end
 ```
-  (ii) **Exercise 2.** Let $X$ be a set, a filter $\mathcal{F}$ of $X$ and two subsets $V,U \subseteq X$. If the subset $\left\{ x\in X\ |\ \textup{if} x\in V\textup{ then } x\in U\right\}$ is in the filter, then $U$ is in the filter if $V$ is in the filter.
+  2. **Exercise 2.** Let $X$ be a set, a filter $\mathcal{F}$ of $X$ and two subsets $V,U \subseteq X$. If the subset $\left\{ x\in X\ |\ \textup{if} x\in V\textup{ then } x\in U\right\}$ is in the filter, then $U$ is in the filter if $V$ is in the filter.
   
 ```{.lean .skip}  
   variable {F : filter X}
@@ -129,3 +134,4 @@ This subsection aims to propose some exercises that will help the reader to test
     sorry
   end
 ```
+:::
