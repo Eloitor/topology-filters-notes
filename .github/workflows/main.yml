@@ -17,13 +17,13 @@ jobs:
       - name: Install dependencies
         run: |
           apk add --no-cache git make rsync
+      - name: Checkout repository
+        uses: actions/checkout@v2
       - name: Install python and panflute
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
           cache: 'pip'
-      - name: Checkout repository
-        uses: actions/checkout@v2
       - run: pip install -r requirements.txt
       - name: Build
         run: |
