@@ -64,6 +64,7 @@ toc:: $(subst ",,$(content_files))
 	pandoc -f markdown+pipe_tables-tex_math_dollars-raw_tex \
 	-t html4 \
 	--number-sections --file-scope \
+	--toc-depth=2 \
 	 --toc -s $(subst ",,$(content_files)) > toc-tmp.html
 	
 	# Change all ocurrences of "nav" to "div"
