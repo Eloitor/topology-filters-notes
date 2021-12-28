@@ -149,7 +149,7 @@ This subsection aims to propose some exercises that will help the reader to test
 ```
 
 ### Filter Order
-  **Exercise 1.3.2.1** Let $X$ be a set, considering the partial order defined before proof that exists a filter, which we will denote as $\bot$, that giving a random filter $\mathcal{F}$ of the set $X$, satisfies $\bot\leq\mathcal{F}$.
+  **Exercise 1.3.2.1** Considering the partial order defined before, proof that exists a filter, which we will denote as $\bot$, that giving a random filter $\mathcal{F}$ of the set $X$, satisfies $\bot\leq\mathcal{F}$.
 ```lean
   instance : has_bot (filter X) := sorry
 
