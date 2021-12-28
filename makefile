@@ -70,9 +70,14 @@ toc:: $(subst ",,$(content_files))
 	# sed -i 's/nav/div/g' toc-tmp.html
 
 	pandoc -F pandoc_filters/fixtoc.py \
-	 -s -f html -o web/toc.html \
+	 -s -f html -o templates/toc.html \
 	 -M files=${content_files_comma_separated} \
 	  toc-tmp.html
+
+	  # Remove everything but the table of contents
+	  sed -i '/<div id="TOC">/,/<\/div>/!d' templates/toc.html
+	  # sed -i 's/<div class="toc">/<div class="toc">\n<ul>/g' templates/toc.html
+	  # sed -i 's/<div id="toc">.*<\/div>//g' templates/toc.html
 
 docker:
 	$(shell \
