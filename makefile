@@ -65,7 +65,7 @@ toc:: $(subst ",,$(content_files))
 	-t html4 \
 	--number-sections --file-scope \
 	--toc-depth=2 \
-	 --toc -s $(subst ",,$(content_files)) > toc-tmp.html
+	--toc -s $(subst ",,$(content_files)) > toc-tmp.html
 	
 	# Change all ocurrences of "nav" to "div"
 	# sed -i 's/nav/div/g' toc-tmp.html
@@ -75,10 +75,8 @@ toc:: $(subst ",,$(content_files))
 	 -M files=${content_files_comma_separated} \
 	  toc-tmp.html
 
-	  # Remove everything but the table of contents
-	  sed -i '/<div id="TOC">/,/<\/div>/!d' templates/toc.html
-	  # sed -i 's/<div class="toc">/<div class="toc">\n<ul>/g' templates/toc.html
-	  # sed -i 's/<div id="toc">.*<\/div>//g' templates/toc.html
+	# Remove everything but the table of contents
+	sed -i '/<div id="TOC">/,/<\/div>/!d' templates/toc.html
 
 docker:
 	$(shell \
