@@ -18,7 +18,7 @@ templates = $(shell find templates/ -type f -name '*.html')
 other_files_src = $(shell find src/ -type f \( -iname \*.jpg -o -iname \*.png -o -iname \*.css -o -iname \*.html \))
 other_files_web = $(patsubst src/%, web/%, $(other_files_src))
 
-.PHONY: all clean auto init
+.PHONY: all clean auto init toc docker
 
 # init:
 # 	# Check if pandoc is installed
@@ -28,10 +28,9 @@ other_files_web = $(patsubst src/%, web/%, $(other_files_src))
 # 	# fi
 
 
-all: $(html_files) $(other_files_web)
+all: toc $(html_files) $(other_files_web)
 
 web/%.html: src/%.md $(templates)
-
 	mkdir -p "$(@D)"
 	pandoc --lua-filter=pandoc_filters/lean.lua \
 		 -f markdown+pipe_tables-tex_math_dollars-raw_tex \
@@ -50,6 +49,7 @@ web/%: src/%
 
 clean:
 	rm -rf web
+	rm toc*.html
 
 auto:
 	make clean
@@ -59,10 +59,24 @@ auto:
 		echo 'templates' | entr -d -z make all; \
 	done)
 
-toc:
-	pandoc --number-sections --file-scope \
+# Terminal rule
+toc:: $(subst ",,$(content_files))
+	mkdir -p web
+
+	pandoc -f markdown+pipe_tables-tex_math_dollars-raw_tex \
+	-t html4 \
+	--number-sections --file-scope \
 	 --toc -s $(subst ",,$(content_files)) > toc-tmp.html
 	
-	pandoc -s -f html -o toc.html \
+	# Change all ocurrences of "nav" to "div"
+	# sed -i 's/nav/div/g' toc-tmp.html
+
+	pandoc -F pandoc_filters/fixtoc.py \
+	 -s -f html -o web/toc.html \
 	 -M files=${content_files_comma_separated} \
-	 -F pandoc_filters/fixtoc.py toc-tmp.html
+	  toc-tmp.html
+
+docker:
+	$(shell \
+	DOCKER_BUILDKIT=1 \
+	docker build --pull --rm -f "Dokerfile" --output web .)

@@ -17,7 +17,8 @@ def prepare(doc):
     #fns = glob.glob(fns)
     fns = fns.split(',')
     pf.debug('Files:', fns)
-    fns = [fn.replace('.md', '.html') for fn in fns]    
+    fns = [fn.replace('.md', '.html') for fn in fns]  
+    fns = [fn.replace('src/', 'https://Eloitor.github.io/topology-filters-notes/') for fn in fns]  
     doc.fns = fns
     pf.debug('-' * 64)
 
