@@ -73,7 +73,7 @@ When we attend to define a principal filter in Lean, we will be required to prov
     sets_of_superset  := assume x y hx hy, subset.trans hx hy,
     inter_sets        := assume x y, subset_inter }
     
-  localized "notation `P` := filter.principal" in filter
+  localized "notation `P` := principal" in filter
 ```
 
 ## Filter Order
@@ -104,13 +104,30 @@ When we attend to define an order relation in LEAN, we are required to specify t
     le_trans      := λ a b c h₁ h₂, subset.trans h₂ h₁ }
 ```
 
+Given that definition of an order in the filter structure, can be easily proved that, given a random filter $\mathcal{F}$, it would be more finer than the filter $\{X\}$ (also known as the Principal filter of the total subset $X$). By proving this last statement, we are also proving that the order structure has a top element. On the following lines, the reader can see this proof in LEAN code
+
+```lean
+  instance : has_top (filter X) := ⟨P univ⟩
+
+  lemma le_top_all : ∀ (F : filter X), F ≤ ⊤ :=
+  begin
+    intros F A hA,
+    have : A = univ,
+    { exact eq_top_iff.mpr hA },
+    rw this,
+    exact filter.univ_sets F,
+  end
+```
+
+In the ordered structure we have defined, it could be defined as well as a top element, a bottom element. The definition of this element and the consequent proof will be left as an exercise for the reader in the next section. This demonstration will be essential for the next chapter, so we highly recommend writing the LEAN proof to make the next chapter proofs coherent.
+
 ## Exercices
 
 This subsection aims to propose some exercises that will help the reader to test the knowledge presented above. All are written in Lean and the usual way and separated into the sections we have followed.
 
 ### Filter definition
-:::{.roman-list}
-  1. **Exercise 1.** Let $X$ be a set, a filter $\mathcal{F}$ of $X$ and two subsets $V,U \subseteq X$. The intersection of the subsets is on the filter if only if both are in the filter.
+
+  **Exercise 1.3.1.1** Let $X$ be a set, a filter $\mathcal{F}$ of $X$ and two subsets $V,U \subseteq X$. The intersection of the subsets is on the filter if only if both are in the filter.
 ```{.lean .skip}
   variable {F : filter X}
   
@@ -119,7 +136,7 @@ This subsection aims to propose some exercises that will help the reader to test
     sorry
   end
 ```
-  2. **Exercise 2.** Let $X$ be a set, a filter $\mathcal{F}$ of $X$ and two subsets $V,U \subseteq X$. If the subset $\left\{ x\in X\ |\ \textup{if} x\in V\textup{ then } x\in U\right\}$ is in the filter, then $U$ is in the filter if $V$ is in the filter.
+  **Exercise 1.3.1.2** Let $X$ be a set, a filter $\mathcal{F}$ of $X$ and two subsets $V,U \subseteq X$. If the subset $\left\{ x\in X\ |\ \textup{if} x\in V\textup{ then } x\in U\right\}$ is in the filter, then $U$ is in the filter if $V$ is in the filter.
   
 ```{.lean .skip}  
   variable {F : filter X}
@@ -130,4 +147,14 @@ This subsection aims to propose some exercises that will help the reader to test
     sorry
   end
 ```
-:::
+
+### Filter Order
+  **Exercise 1.3.2.1** Let $X$ be a set, considering the partial order defined before proof that exists a filter, which we will denote as $\bot$, that giving a random filter $\mathcal{F}$ of the set $X$, satisfies $\bot\leq\mathcal{F}$.
+```lean
+  instance : has_bot (filter X) := sorry
+
+  lemma bot_le_all : ∀ (F : filter X), ⊥ ≤ F :=
+  begin
+    sorry
+  end
+```
