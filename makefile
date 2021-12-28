@@ -1,10 +1,10 @@
 #### CONFIGURATION ####
 
 title = "Topology Filters Notes"
+base_url = "eloitor.github.io/topology-filters-notes"
 
-# This files will be included in the table of contents.
-content_files = "src/definitions.md \
-				 src/structures.md"
+# Markdown files to include in the table of contents
+content_files = "src/definitions.md src/structures.md"
 
 #### END CONFIGURATION ####
 
@@ -18,15 +18,7 @@ templates = $(shell find templates/ -type f -name '*.html')
 other_files_src = $(shell find src/ -type f \( -iname \*.jpg -o -iname \*.png -o -iname \*.css -o -iname \*.html \))
 other_files_web = $(patsubst src/%, web/%, $(other_files_src))
 
-.PHONY: all clean auto init toc docker
-
-# init:
-# 	# Check if pandoc is installed
-# 	# if [ ! -x $(which pandoc) ]; then
-# 	# 	echo "pandoc is not installed. Please install it first."
-# 	# 	exit 1
-# 	# fi
-
+.PHONY: all clean watch init toc docker
 
 all: toc $(html_files) $(other_files_web)
 
@@ -49,7 +41,7 @@ web/%: src/%
 
 clean:
 	rm -rf web
-auto:
+watch:
 	make clean
 	make all
 	$(shell \
