@@ -68,8 +68,7 @@ toc:: $(subst ",,$(content_files))
 	 --toc -s $(subst ",,$(content_files)) | \
 	 pandoc -F pandoc_filters/fixtoc.py \
 	 -s -f html -o web/toc.html \
-	 -M files=${content_files_comma_separated} \
-	  toc-tmp.html
+	 -M files=${content_files_comma_separated}
 
 docker:
 	$(shell \
