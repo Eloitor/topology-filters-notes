@@ -65,4 +65,4 @@ toc:
 	
 	pandoc -s -f html -o toc.html \
 	 -M files=${content_files_comma_separated} \
-	 -F fixtoc.py toc-tmp.html
+	 -F pandoc_filters/fixtoc.py toc-tmp.html
