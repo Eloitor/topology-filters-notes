@@ -65,12 +65,8 @@ toc:: $(subst ",,$(content_files))
 	pandoc -f markdown+pipe_tables-tex_math_dollars-raw_tex \
 	-t html4 \
 	--number-sections --file-scope \
-	 --toc -s $(subst ",,$(content_files)) > toc-tmp.html
-	
-	# Change all ocurrences of "nav" to "div"
-	# sed -i 's/nav/div/g' toc-tmp.html
-
-	pandoc -F pandoc_filters/fixtoc.py \
+	 --toc -s $(subst ",,$(content_files)) | \
+	 pandoc -F pandoc_filters/fixtoc.py \
 	 -s -f html -o web/toc.html \
 	 -M files=${content_files_comma_separated} \
 	  toc-tmp.html
