@@ -49,7 +49,6 @@ web/%: src/%
 
 clean:
 	rm -rf web
-	rm toc*.html
 
 auto:
 	make clean
