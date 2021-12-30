@@ -25,6 +25,19 @@ pip3 install panflute
 make
 ```
 
+You can also serve the project locally, which compiles the markdown files every time you edit one of them. For this, you need to install `entr` and `browser-sync`:
+```
+sudo apt-get install entr
+npm install -g browser-sync
+```
+And then run the following command:
+```
+make serve
+```
+
+
+## Using docker
+
 Alternatively, if you want to be sure to use the latest version of `pandoc` you can install `Docker`
 ```shell
 sudo apt-get install docker
@@ -32,9 +45,4 @@ sudo apt-get install docker
 and run the docker container described in the `Dockerfile`:
 ```
 make docker
-```
-
-If you want the project to be build (locally) on every file change, you can run the `watch` command:
-```
-make watch
 ```

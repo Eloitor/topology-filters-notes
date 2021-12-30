@@ -1,36 +1,29 @@
 #### CONFIGURATION ####
-
-title = "Topology Filters Notes"
+title = "Topology Filters Notes" # Not currently used
 base_url = "eloitor.github.io/topology-filters-notes"
 
-# Markdown files to include in the table of contents
-content_files = "src/definitions.md src/structures.md"
-
-#### END CONFIGURATION ####
-
-.PHONY: all clean watch toc html_files copy_other_files docker
-
-templates = $(shell find templates/ -type f -name '*.html')
+# Markdown files to include in the table of contents (in order)
+content_files = src/definitions.md src/structures.md
 
 ##### Aviable targets to build #####
+.PHONY: all clean serve docker \
+	toc html_files copy_other_files watch
 
 # Build the entire site
 all: toc html_files copy_other_files
 
-# Watch for changes in the src/ directory and rebuild the site
-watch:
-	make clean
+# Build and serve the site locally (requires `browser-sync` and `entr`)
+serve:
+	@echo Serving the site locally...
 	make all
-	$(shell \
-	while sleep 0.1; do echo 'src' | entr -d -z make all && \
-		echo 'templates' | entr -d -z make all; \
-	done)
+	browser-sync web& \
+		make watch ACTION="make all && browser-sync reload"
 
-# Build the entire site using a docker container
+# Build the entire site using a docker container (requires `docker`)
 docker:
 	$(shell \
 	DOCKER_BUILDKIT=1 \
-	docker build --pull --rm -f "Dokerfile" --output web .)
+	docker build --pull --rm -f Dokerfile --output web .)
 
 # Clean the site directory and remove the generated files
 clean:
@@ -51,17 +44,17 @@ other_files_src = $(shell find src/ -type f \( -iname \*.jpg -o -iname \*.png -o
 copy_other_files: $(patsubst src/%, web/%, $(other_files_src))
 
 # Build an individual html file
-web/%.html: src/%.md $(templates) templates/toc.html
+templates = $(shell find templates/ -type f -name '*.html') templates/toc.html
+web/%.html: src/%.md $(templates)
 	mkdir -p "$(@D)"
 	pandoc --lua-filter=pandoc_filters/lean.lua \
 		 -f markdown+pipe_tables-tex_math_dollars-raw_tex \
 		--template templates/webpage.html \
 		--css $(shell (echo $(patsubst web/%, %, $(@D)) | sed "s/[^/]*/./g"))/styles.css \
 		-V root=$(shell (echo $(patsubst web/%, %, $(@D)) | sed "s/[^/]*/./g")) \
-		--metadata title=${title} \
+		--metadata title=$(title) \
 		--syntax-definition=lean_syntax.xml \
-		--toc \
-		--number-sections \
+		--toc --number-sections \
 		$< -o $@
 
 # Copy any non-html file from src/ to web/
@@ -70,23 +63,29 @@ web/%: src/%
 	cp $< $@
 
 # Generate the table of contents
-content_files_comma_separated = $(shell echo ${content_files} | sed 's/ /,/g')
-templates/toc.html: $(subst ",,$(content_files))
+content_files_comma_separated = $(shell echo $(content_files) | sed 's/ /,/g')
+templates/toc.html: $(content_files)
 	mkdir -p web
 
 	pandoc -f markdown+pipe_tables-tex_math_dollars-raw_tex \
-	-t html4 \
-	--number-sections --file-scope \
-	--toc-depth=2 \
-	--toc -s $(subst ",,$(content_files)) > toc-tmp.html
+	--toc --toc-depth=2 --number-sections --file-scope \
+	-t html4 -s $(content_files) > toc-tmp.html
 	
-	# Change all ocurrences of "nav" to "div"
-	# sed -i 's/nav/div/g' toc-tmp.html
-
 	pandoc -F pandoc_filters/fixtoc.py \
 	 -s -f html -o templates/toc.html \
-	 -M files=${content_files_comma_separated} \
+	 -M files=$(content_files_comma_separated) \
 	  toc-tmp.html
 
 	# Remove everything but the table of contents
 	sed -i '/<div id="TOC">/,/<\/div>/!d' templates/toc.html
+
+# Watch for changes in the src/ directory and rebuild the site when changes are detected (requires `entr`)
+# It can run additional tasks, passing the name of the task as the argument `ACTION`
+ACTION = make all
+files_to_watch = $(shell find src/ -type f  \( -iname \*.md -o -iname \*.html \)) $(shell find templates/ -type f -name '*.html')
+watch:
+	@echo Watching for changes in src/ and running $(ACTION) when changes are detected
+	make all
+	while true; do \
+		ls -d $(files_to_watch) | entr -d -p sh -c "$(ACTION)"; \
+	done
