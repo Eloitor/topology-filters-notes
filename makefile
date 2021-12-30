@@ -1,6 +1,7 @@
 #### CONFIGURATION ####
 title = "Topology Filters Notes" # Not currently used
-base_url = "eloitor.github.io/topology-filters-notes"
+base_url = http://localhost:3006/ 
+# base_url = "eloitor.github.io/topology-filters-notes"
 
 # Markdown files to include in the table of contents (in order)
 content_files = src/definitions.md src/structures.md
@@ -15,9 +16,10 @@ all: toc html_files copy_other_files
 # Build and serve the site locally (requires `browser-sync` and `entr`)
 serve:
 	@echo Serving the site locally...
-	make all
+	make clean
+	make all base_url="http://localhost:3006/"
 	browser-sync web& \
-		make watch ACTION="make all && browser-sync reload"
+		make watch ACTION="make all base_url=http://localhost:3006/ && browser-sync reload"
 
 # Build the entire site using a docker container (requires `docker`)
 docker:
@@ -71,7 +73,8 @@ templates/toc.html: $(content_files)
 	--toc --toc-depth=2 --number-sections --file-scope \
 	-t html4 -s $(content_files) > toc-tmp.html
 	
-	pandoc -F pandoc_filters/fixtoc.py \
+	pandoc -M base_url="$(base_url)" \
+	 -F pandoc_filters/fixtoc.py \
 	 -s -f html -o templates/toc.html \
 	 -M files=$(content_files_comma_separated) \
 	  toc-tmp.html
@@ -81,11 +84,11 @@ templates/toc.html: $(content_files)
 
 # Watch for changes in the src/ directory and rebuild the site when changes are detected (requires `entr`)
 # It can run additional tasks, passing the name of the task as the argument `ACTION`
-ACTION = make all
+ACTION = make all base_url=$(base_url)
 files_to_watch = $(shell find src/ -type f  \( -iname \*.md -o -iname \*.html \)) $(shell find templates/ -type f -name '*.html')
 watch:
 	@echo Watching for changes in src/ and running $(ACTION) when changes are detected
-	make all
+	$(ACTION)
 	while true; do \
 		ls -d $(files_to_watch) | entr -d -p sh -c "$(ACTION)"; \
 	done

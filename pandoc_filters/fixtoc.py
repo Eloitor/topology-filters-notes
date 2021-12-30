@@ -12,13 +12,15 @@ import panflute as pf
 def prepare(doc):
     # Create file list
     fns = doc.get_metadata('files')
+    url = doc.get_metadata('base_url')
     pf.debug('-' * 64)
     pf.debug('Expanding pattern:', fns)
     #fns = glob.glob(fns)
     fns = fns.split(',')
     pf.debug('Files:', fns)
-    fns = [fn.replace('.md', '') for fn in fns]  
-    fns = [fn.replace('src/', 'https://Eloitor.github.io/topology-filters-notes/') for fn in fns]  
+    fns = [fn.replace('.md', '') for fn in fns]
+    # We can remove '.html' extension when the webserver can read the .htaccess file
+    fns = [fn.replace('src/', url) + '.html' for fn in fns]  
     doc.fns = fns
     pf.debug('-' * 64)
 
