@@ -1,6 +1,6 @@
 #### CONFIGURATION ####
 title = "Topology Filters Notes" # Not currently used
-base_url = "eloitor.github.io/topology-filters-notes"
+base_url = "https://eloitor.github.io/topology-filters-notes/"
 
 # Markdown files to include in the table of contents (in order)
 content_files = src/definitions.md src/structures.md
