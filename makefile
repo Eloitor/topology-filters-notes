@@ -41,7 +41,8 @@ md_files = $(shell find src/ -type f -name '*.md')
 html_files: $(patsubst src/%.md, web/%.html, $(md_files))
 
 # Copy all other files from src/ to web/
-other_files_src = $(shell find src/ -type f \( -iname \*.jpg -o -iname \*.png -o -iname \*.css -o -iname \*.html \))
+other_files_src = $(shell find src/ -type f \( -iname \*.jpg -o -iname \*.png -o -iname \*.css -o -iname \*.html \
+	-o -iname .htaccess -o -iname \*.ico -o -iname \*.js \))
 copy_other_files: $(patsubst src/%, web/%, $(other_files_src))
 
 # Build an individual html file

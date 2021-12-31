@@ -1,3 +1,4 @@
+#Source: https://stackoverflow.com/questions/39078338/remove-html-extension-using-htaccess-file
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
