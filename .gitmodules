@@ -1,3 +1,9 @@
 [submodule "pandoc_filters/panflute-filters"]
 	path = pandoc_filters/panflute-filters
 	url = https://github.com/sergiocorreia/panflute-filters.git
+[submodule "pandoc_filters/pandoc_static_katex"]
+	path = pandoc_filters/pandoc_static_katex
+	url = https://github.com/Zaharid/pandoc_static_katex.git
+[submodule "pandoc_filters/pandoc-katex"]
+	path = pandoc_filters/pandoc-katex
+	url = https://github.com/samgriesemer/pandoc-katex.git
