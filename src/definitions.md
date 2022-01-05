@@ -2,6 +2,10 @@
 my-title: Definicions
 math: true
 number-sections: true
+pandoc-numbering:
+  definition:
+    general:
+      sectioning-levels: +.+.
 ---
 
 # Filter definition and basics examples
@@ -13,6 +17,15 @@ This chapter aims to define an algebraic structure with filters using two operat
 ## Filter definition
 
 Firstly, we will introduce the filter definition of a giving set.
+
+Definition (Filter) #
+: *Let $X$ be a set, a filter is a family of subsets of the power set $\mathcal{F}\subseteq \mathcal{P}(X)$ satisfying the following properties:*
+
+:::{.roman-list}
+1. *The universal set is in the filter* $X\in \mathcal{F}$.
+2. *If $E\in\mathcal{F}$, then $\forall A\in\mathcal{P}(X)$ such that $E\subseteq A$, we have* $A\in\mathcal{F}$.
+3. *If $E,A\in\mathcal{F}$, then* $E\cap A\in\mathcal{F}$.
+:::
 
 **Definition 1.1.1** (Filter). *Let* $X$ *be a set, a filter is a family of subsets of the power ser* $\mathcal{F}\subseteq \mathcal{P}(X)$ *satisfying 
 the next properties*
@@ -49,6 +62,9 @@ As we have just seen, the concept of filter in Lean is a structure. Conceptually
 ```
 
 Having introduced the definition of filters, we will proceed with defining the principal filters. Those are essential to lots of topological structures as the open neighbourhood of a point.
+
+Definition (Principal Filter) #
+: *Let $X$ be a set and $A\subseteq X$ a subset. We define the principal filter as the subset $\left\\{t\in\mathcal{P}(X)\ |\ s\subseteq t\right\\}$ that, from now onwards, will be denoted as* $P(A)$.
 
 **Definition 1.1.2** (Principal Filter). *Let* $X$ *a set and* $A\subseteq X$ *a subset. We define the principal filter as the subset* $\left\{t\in\mathcal{P}(X)\ |\ s\subseteq t\right\}$ *that, from now onwards, will be denoted as* $P(A)$.
 

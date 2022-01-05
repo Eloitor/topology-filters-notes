@@ -50,6 +50,7 @@ templates = $(shell find templates/ -type f -name '*.html') templates/toc.html
 web/%.html: src/%.md $(templates)
 	mkdir -p "$(@D)"
 	pandoc --lua-filter=pandoc_filters/lean.lua \
+		--filter=pandoc-numbering \
 		 -f markdown+pipe_tables-tex_math_dollars-raw_tex \
 		--template templates/webpage.html \
 		--css $(shell (echo $(patsubst web/%, %, $(@D)) | sed "s/[^/]*/./g"))/styles.css \

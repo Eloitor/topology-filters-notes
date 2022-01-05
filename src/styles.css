@@ -170,3 +170,11 @@ div.alpha-list ol > li:before {
 .toc-section-number {
   display: none;
 }
+
+/* Theorems, Definitions, etc. */
+
+dd {
+  margin: 0;
+}
+
+dt, dd { display: inline; }
