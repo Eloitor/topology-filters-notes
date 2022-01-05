@@ -1,0 +1,21 @@
+from: markdown+pipe_tables-tex_math_dollars-raw_tex+startnum+emoji
+to: html5
+
+metadata:
+  author:
+  - Carlos Caralps
+  - Eloi Torrents
+  title: Topology Filters Notes
+
+table-of-contents: true
+number-sections: true
+
+template: templates/webpage.html
+
+filters:
+- pandoc_filters/lean.lua
+- pandoc-numbering
+
+syntax-definition: lean_syntax.xml
+
+

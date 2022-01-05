@@ -1,4 +1,8 @@
 ---
+number-offset: [3,0,0,0,0,0]
+---
+
+---
 date: 26 de Desembre de 2021
 math: true
 ---

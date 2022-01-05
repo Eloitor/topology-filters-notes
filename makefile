@@ -1,5 +1,4 @@
 #### CONFIGURATION ####
-title = "Topology Filters Notes" # Not currently used
 base_url = "https://eloitor.github.io/topology-filters-notes/"
 
 # Markdown files to include in the table of contents (in order)
@@ -49,15 +48,15 @@ copy_other_files: $(patsubst src/%, web/%, $(other_files_src))
 templates = $(shell find templates/ -type f -name '*.html') templates/toc.html
 web/%.html: src/%.md $(templates)
 	mkdir -p "$(@D)"
-	pandoc --lua-filter=pandoc_filters/lean.lua \
-		--filter=pandoc-numbering \
-		 -f markdown+pipe_tables-tex_math_dollars-raw_tex \
-		--template templates/webpage.html \
+
+	# Extract yaml front matter from source ($<). This is only the text between the fist pair of --- lines.
+	$(shell awk '/^---/{if (flag == 0) {flag = 1; next} else exit} flag' $< > tmp.yaml)
+
+	pandoc \
 		--css $(shell (echo $(patsubst web/%, %, $(@D)) | sed "s/[^/]*/./g"))/styles.css \
 		-V root=$(shell (echo $(patsubst web/%, %, $(@D)) | sed "s/[^/]*/./g")) \
-		--metadata title=$(title) \
-		--syntax-definition=lean_syntax.xml \
-		--toc --number-sections \
+		--defaults=defaults.yaml \
+		--defaults=tmp.yaml \
 		$< -o $@
 
 # Copy any non-html file from src/ to web/

@@ -1,31 +1,14 @@
-Topology Filters
-================================================================
-
-``` toctree::
-   :maxdepth: 1
-
-   introduction
-```
-
-``` toctree
 ---
-maxdepth: 2
+number-offset: [6]
 ---
-   
-   definitions
-```
 
-.. toctree::
-   :maxdepth: 1
+---
+math: true
+ok: yes
+---
 
-   symbols
-   tactics
+# Topology Filters
 
-   
-
-
-.. Indices and tables
-   ==================
-   * :ref:`genindex`
-   * :ref:`modindex`
-   * :ref:`search`
+---
+new: true
+---
