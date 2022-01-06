@@ -52,7 +52,12 @@ web/%.html: src/%.md $(templates)
 	# Extract yaml front matter from source ($<). This is only the text between the fist pair of --- lines.
 	$(shell awk '/^---/{if (flag == 0) {flag = 1; next} else exit} flag' $< > tmp.yaml)
 
-	pandoc --defaults=defaults.yaml --defaults=tmp.yaml $< -o $@
+	pandoc \
+		--css $(shell (echo $(patsubst web/%, %, $(@D)) | sed "s/[^/]*/./g"))/styles.css \
+		-V root=$(shell (echo $(patsubst web/%, %, $(@D)) | sed "s/[^/]*/./g")) \
+		--defaults=defaults.yaml \
+		--defaults=tmp.yaml \
+		$< -o $@
 
 # Copy any non-html file from src/ to web/
 web/%: src/%
