@@ -11,6 +11,7 @@ table-of-contents: true
 number-sections: true
 
 template: templates/webpage.html
+css: /styles.css
 
 filters:
 - pandoc_filters/lean.lua
