@@ -36,6 +36,9 @@ Definition (Filter) #
     :::
 
 
+Definition (Filter) #
+: *Let $X$ be a set, a filter is a family of subsets of the power set $\mathcal{F}\subseteq \mathcal{P}(X)$ satisfying the following properties:*
+
 **Definition 1.1.1** (Filter). *Let* $X$ *be a set, a filter is a family of subsets of the power ser* $\mathcal{F}\subseteq \mathcal{P}(X)$ *satisfying 
 the next properties*
 
