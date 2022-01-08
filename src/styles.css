@@ -177,4 +177,4 @@ dd {
   margin: 0;
 }
 
-dt, dd { display: inline; }
+dt, dd, dd p { display: inline; }
