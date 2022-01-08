@@ -35,19 +35,6 @@ Definition (Filter) #
     3. *If* $E,A\in\mathcal{F}$, *then* $E\cap A\in\mathcal{F}$.
     :::
 
-
-Definition (Filter) #
-: *Let $X$ be a set, a filter is a family of subsets of the power set $\mathcal{F}\subseteq \mathcal{P}(X)$ satisfying the following properties:*
-
-**Definition 1.1.1** (Filter). *Let* $X$ *be a set, a filter is a family of subsets of the power ser* $\mathcal{F}\subseteq \mathcal{P}(X)$ *satisfying 
-the next properties*
-
-:::{.roman-list}
-1. *The universal set is in the filter* $X\in \mathcal{F}$.
-2. *If* $E\in\mathcal{F}$, *then* $\forall A\in\mathcal{P}(X)$ *such that* $E\subseteq A$, *we have* $A\in\mathcal{F}$.
-3. *If* $E,A\in\mathcal{F}$, *then* $E\cap A\in\mathcal{F}$.
-:::
-
 The reader might have noticed we have not included the empty axiom (states that the empty set cannot be in any filter) commonly used in filter definitions and required for topology filter convergence. 
 Assuming it, would make it impossible to define the neutral element in one of the operations we will use later.
 
@@ -155,34 +142,40 @@ This subsection aims to propose some exercises that will help the reader to test
 
 ### Filter definition
 
-  **Exercise 1.3.1.1** Let $X$ be a set, a filter $\mathcal{F}$ of $X$ and two subsets $V,U \subseteq X$. The intersection of the subsets is on the filter if only if both are in the filter.
-```{.lean .skip}
-  variable {F : filter X} 
-  
-  lemma exercise1 {V U} : V ∩ U ∈ F.sets ↔ V ∈ F.sets ∧ U ∈ F.sets :=
-  begin
-    sorry
-  end
-```
-  **Exercise 1.3.1.2** Let $X$ be a set, a filter $\mathcal{F}$ of $X$ and two subsets $V,U \subseteq X$. If the subset $\left\{ x\in X\ |\ \textup{if} x\in V\textup{ then } x\in U\right\}$ is in the filter, then $U$ is in the filter if $V$ is in the filter.
-  
-```{.lean .skip}  
-  variable {F : filter X}
+Exercise #
+: Let $X$ be a set, a filter $\mathcal{F}$ of $X$ and two subsets $V,U \subseteq X$. The intersection of the subsets is on the filter if only if both are in the filter.
 
-  lemma exercise2 {V U} (h : {x | x ∈ V → x ∈ U} ∈ F.sets) : 
-    V ∈ F.sets → U ∈ F.sets :=
-  begin
-    sorry
-  end
-```
+    ```{.lean .skip}
+      variable {F : filter X} 
+
+      lemma exercise1 {V U} : V ∩ U ∈ F.sets ↔ V ∈ F.sets ∧ U ∈ F.sets :=
+      begin
+        sorry
+      end
+    ```
+    
+Exercise #
+: Let $X$ be a set, a filter $\mathcal{F}$ of $X$ and two subsets $V,U \subseteq X$. If the subset $\left\{ x\in X\ |\ \textup{if} x\in V\textup{ then } x\in U\right\}$ is in the filter, then $U$ is in the filter if $V$ is in the filter.
+  
+    ```{.lean .skip}  
+      variable {F : filter X}
+
+      lemma exercise2 {V U} (h : {x | x ∈ V → x ∈ U} ∈ F.sets) : 
+        V ∈ F.sets → U ∈ F.sets :=
+      begin
+        sorry
+      end
+    ```
 
 ### Filter Order
-  **Exercise 1.3.2.1** Considering the partial order defined before, proof that exists a filter, which we will denote as $\bot$, that giving a random filter $\mathcal{F}$ of the set $X$, always satisfies $\bot\leq\mathcal{F}$.
-```lean
-  instance : has_bot (filter X) := sorry
+Exercise #
+: Considering the partial order defined before, proof that exists a filter, which we will denote as $\bot$, that giving a random filter $\mathcal{F}$ of the set $X$, always satisfies $\bot\leq\mathcal{F}$.
 
-  lemma bot_le_all : ∀ (F : filter X), ⊥ ≤ F :=
-  begin
-    sorry
-  end
-```
+    ```lean
+      instance : has_bot (filter X) := sorry
+
+      lemma bot_le_all : ∀ (F : filter X), ⊥ ≤ F :=
+      begin
+        sorry
+      end
+    ```
