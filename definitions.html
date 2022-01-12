@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <meta name="author" content="Carlos Caralps" />
+    <meta name="author" content="Eloi Torrents" />
+      <title>Topology Filters Notes</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+    <link rel="stylesheet" href="./styles.css" />
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css"
+    integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous" />
+
+  <!-- The loading of KaTeX is deferred to speed up page rendering -->
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
+    integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx"
+    crossorigin="anonymous"></script>
+
+  <!-- To automatically render math in text elements, include the auto-render extension: -->
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
+    integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous" onload="renderMathInElement(document.body, {delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ]});"></script>
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+    <![endif]-->
+  
+</head>
+
+<body>
+     <header id="title-block-header">
+    <h1 class="title">Topology Filters Notes</h1>
+     
+    <!--    <p class="author">Carlos Caralps</p>
+        <p class="author">Eloi Torrents</p>
+      -->
+      </header>
+    <div class="row">
+    <div class="side">
+    <nav id="TOC" role="doc-toc">
+    <!-- <ul>
+    <li><a href="#filter-definition-and-basics-examples"><span class="toc-section-number">1</span> Filter definition and basics examples</a>
+    <ul>
+    <li><a href="#filter-definition"><span class="toc-section-number">1.1</span> Filter definition</a></li>
+    <li><a href="#filter-order"><span class="toc-section-number">1.2</span> Filter Order</a></li>
+    <li><a href="#exercices"><span class="toc-section-number">1.3</span> Exercices</a>
+    <ul>
+    <li><a href="#filter-definition-1"><span class="toc-section-number">1.3.1</span> Filter definition</a></li>
+    <li><a href="#filter-order-1"><span class="toc-section-number">1.3.2</span> Filter Order</a></li>
+    </ul></li>
+    </ul></li>
+    </ul> -->
+    <div id="TOC">
+    <ul>
+    <li><a href="https://eloitor.github.io/topology-filters-notes/definitions.html#filter-definition-and-basics-examples"><span class="toc-section-number">1</span> Filter definition and basics examples</a>
+    <ul>
+    <li><a href="https://eloitor.github.io/topology-filters-notes/definitions.html#filter-definition"><span class="toc-section-number">1.1</span> Filter definition</a></li>
+    <li><a href="https://eloitor.github.io/topology-filters-notes/definitions.html#filter-order"><span class="toc-section-number">1.2</span> Filter Order</a></li>
+    <li><a href="https://eloitor.github.io/topology-filters-notes/definitions.html#exercices"><span class="toc-section-number">1.3</span> Exercices</a></li>
+    </ul></li>
+    <li><a href="https://eloitor.github.io/topology-filters-notes/structures.html#order-and-algebraic-structure"><span class="toc-section-number">2</span> Order and algebraic structure</a></li>
+    </ul>
+    </div></nav>
+    </div>    <div class="main">
+      <h1 data-number="1" id="filter-definition-and-basics-examples"><span class="header-section-number">1</span> Filter definition and basics examples</h1>
+<p>We will start defining filters and, then the elementary filter propositions will be proved by the usual way and by Lean. This chapter aims to define an algebraic structure with filters using two operations.</p>
+<h2 data-number="1.1" id="filter-definition"><span class="header-section-number">1.1</span> Filter definition</h2>
+<p>Firstly, we will introduce the filter definition of a giving set.</p>
+<dl>
+<dt><span id="definition:filter-definition-and-basics-examples.filter-definition.filter"></span><span id="definition:1.1.1" class="pandoc-numbering-text definition"><strong>Definition 1.1.1</strong> <em>(Filter)</em></span></dt>
+<dd><p><em>Let $X$ be a set, a filter is a family of subsets of the power set $\mathcal{F}\subseteq \mathcal{P}(X)$ satisfying the following properties:</em></p>
+<ol type="i">
+<li><em>The universal set is in the filter</em> $X\in \mathcal{F}$.</li>
+<li><em>If $E\in\mathcal{F}$, then $\forall A\in\mathcal{P}(X)$ such that $E\subseteq A$, we have</em> $A\in\mathcal{F}$.</li>
+<li><em>If $E,A\in\mathcal{F}$, then</em> $E\cap A\in\mathcal{F}$.</li>
+</ol>
+<div class="roman-list">
+<ol type="1">
+<li><em>The universal set is in the filter</em> $X\in \mathcal{F}$.</li>
+<li><em>If</em> $E\in\mathcal{F}$, <em>then</em> $\forall A\in\mathcal{P}(X)$ <em>such that</em> $E\subseteq A$, <em>we have</em> $A\in\mathcal{F}$.</li>
+<li><em>If</em> $E,A\in\mathcal{F}$, <em>then</em> $E\cap A\in\mathcal{F}$.</li>
+</ol>
+</div>
+</dd>
+</dl>
+<p>The reader might have noticed we have not included the empty axiom (states that the empty set cannot be in any filter) commonly used in filter definitions and required for topology filter convergence. Assuming it, would make it impossible to define the neutral element in one of the operations we will use later.</p>
+<p>Having the conceptual definition of filters, we can define this structure in Lean. The following code lines were published in the mathlib repository, being the current definition of filters on that repository.</p>
+<div class="try-me-container">
+<p><a href="https://leanprover-community.github.io/lean-web-editor/#code=%20%20import%20data%2Eset%2Ebasic%0A%20%20open%20set%0A%20%20%0A%20%20structure%20filter%20%28X%20%3A%20Type%29%20%3A%3D%0A%20%20%28sets%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3A%20set%20%28set%20X%29%29%0A%20%20%28univ%5Fsets%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3A%20set%2Euniv%20%E2%88%88%20sets%29%0A%20%20%28sets%5Fof%5Fsuperset%20%7Bx%20y%7D%20%3A%20x%20%E2%88%88%20sets%20%E2%86%92%20x%20%E2%8A%86%20y%20%E2%86%92%20y%20%E2%88%88%20sets%29%0A%20%20%28inter%5Fsets%20%7Bx%20y%7D%20%20%20%20%20%20%20%3A%20x%20%E2%88%88%20sets%20%E2%86%92%20y%20%E2%88%88%20sets%20%E2%86%92%20x%20%E2%88%A9%20y%20%E2%88%88%20sets%29%0A%0A" class="try-me-link">Try me</a></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode lean"><code class="sourceCode leansyntax"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>  <span class="kw">import</span> data<span class="ot">.</span>set<span class="ot">.</span>basic</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">open</span> set</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">structure</span> filter <span class="ot">(</span>X <span class="ot">:</span> <span class="dt">Type</span><span class="ot">)</span> :=</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="ot">(</span>sets                   <span class="ot">:</span> set <span class="ot">(</span>set X<span class="ot">))</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="ot">(</span>univ<span class="ot">_</span>sets              <span class="ot">:</span> set<span class="ot">.</span>univ ∈ sets<span class="ot">)</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="ot">(</span>sets<span class="ot">_</span>of<span class="ot">_</span>superset <span class="ot">{</span>x y<span class="ot">}</span> <span class="ot">:</span> x ∈ sets <span class="ot">→</span> x ⊆ y <span class="ot">→</span> y ∈ sets<span class="ot">)</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="ot">(</span>inter<span class="ot">_</span>sets <span class="ot">{</span>x y<span class="ot">}</span>       <span class="ot">:</span> x ∈ sets <span class="ot">→</span> y ∈ sets <span class="ot">→</span> x ∩ y ∈ sets<span class="ot">)</span></span></code></pre></div>
+</div>
+<p>As we have just seen, the concept of filter in Lean is a structure. Conceptually we understand that two filters are equal if and only if both have the same subset associated, but in Lean code we will need to prove this statement. This trivial lemma will be useful for future proofs.</p>
+<div class="try-me-container">
+<p><a href="https://leanprover-community.github.io/lean-web-editor/#code=%20%20import%20data%2Eset%2Ebasic%0A%20%20open%20set%0A%20%20%0A%20%20structure%20filter%20%28X%20%3A%20Type%29%20%3A%3D%0A%20%20%28sets%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3A%20set%20%28set%20X%29%29%0A%20%20%28univ%5Fsets%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3A%20set%2Euniv%20%E2%88%88%20sets%29%0A%20%20%28sets%5Fof%5Fsuperset%20%7Bx%20y%7D%20%3A%20x%20%E2%88%88%20sets%20%E2%86%92%20x%20%E2%8A%86%20y%20%E2%86%92%20y%20%E2%88%88%20sets%29%0A%20%20%28inter%5Fsets%20%7Bx%20y%7D%20%20%20%20%20%20%20%3A%20x%20%E2%88%88%20sets%20%E2%86%92%20y%20%E2%88%88%20sets%20%E2%86%92%20x%20%E2%88%A9%20y%20%E2%88%88%20sets%29%0A%0A%20%20variable%20%7BX%20%3A%20Type%7D%0A%20%20lemma%20filter%5Feq%20%3A%20%E2%88%80%20%7Bf%20g%20%3A%20filter%20X%7D%2C%20f%2Esets%20%3D%20g%2Esets%20%E2%86%92%20f%20%3D%20g%0A%20%20%7C%20%E2%9F%A8a%2C%20%5F%2C%20%5F%2C%20%5F%E2%9F%A9%20%E2%9F%A8%2E%5F%2C%20%5F%2C%20%5F%2C%20%5F%E2%9F%A9%20rfl%20%3A%3D%20rfl%0A%0A" class="try-me-link">Try me</a></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode lean"><code class="sourceCode leansyntax"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>  <span class="kw">variable</span> <span class="ot">{</span>X <span class="ot">:</span> <span class="dt">Type</span><span class="ot">}</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">lemma</span> filter<span class="ot">_</span>eq <span class="ot">:</span> <span class="ot">∀</span> <span class="ot">{</span>f g <span class="ot">:</span> filter X<span class="ot">}</span>, f<span class="ot">.</span>sets <span class="ot">=</span> g<span class="ot">.</span>sets <span class="ot">→</span> f <span class="ot">=</span> g</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="ot">|</span> ⟨a, <span class="ot">_</span>, <span class="ot">_</span>, <span class="ot">_</span>⟩ ⟨<span class="ot">._</span>, <span class="ot">_</span>, <span class="ot">_</span>, <span class="ot">_</span>⟩ rfl := rfl</span></code></pre></div>
+</div>
+<p>Having introduced the definition of filters, we will proceed with defining the principal filters. Those are essential to lots of topological structures as the open neighbourhood of a point.</p>
+<dl>
+<dt><span id="definition:filter-definition-and-basics-examples.filter-definition.principal-filter"></span><span id="definition:1.1.2" class="pandoc-numbering-text definition"><strong>Definition 1.1.2</strong> <em>(Principal Filter)</em></span></dt>
+<dd><em>Let $X$ be a set and $A\subseteq X$ a subset. We define the principal filter as the subset $\left\{t\in\mathcal{P}(X) | s\subseteq t\right\}$ that, from now onwards, will be denoted as</em> $P(A)$.
+</dd>
+</dl>
+<p><strong>Definition 1.1.2</strong> (Principal Filter). <em>Let</em> $X$ <em>a set and</em> $A\subseteq X$ <em>a subset. We define the principal filter as the subset</em> $\left{t\in\mathcal{P}(X) | s\subseteq t\right}$ <em>that, from now onwards, will be denoted as</em> $P(A)$.</p>
+<p>We have introduced a definition of what we have supposed to be a particular type of filter. Now, we should prove that it fulfils the conditions for being a filter.</p>
+<p><strong>Proposition 1.1.3</strong> <em>Let</em> $X$ <em>a set. For all</em> $A\subseteq X$ <em>subsets, the principal filter of</em> $A$ <em>is a filter.</em></p>
+<p><em>Proof</em>. We will prove that a principal filter is a filter by proving the three properties of filters.</p>
+<div class="roman-list">
+<ol type="1">
+<li>It is clear that $A\subseteq X$. Then, by definition, we have $X\in P(A)$.<br />
+</li>
+<li>If we have $E \in P(A)$, by definition, we also have $A \subseteq E$. For all $B\in\mathcal{P}(X)$ such that $E\subseteq B$, we will have $A\subseteq B$ because of fundamental set propositions. Then we can conclude that $B \in P(A)$.</li>
+<li>If we have $B,C \in P(A)$, by definition, we will have $A \subseteq B$ and $A\subseteq C$. Because $A$ is contained in both subsets, we also have $A\subseteq B \cap C$, which led us to $B \cap C \in P(A)$. $\square$</li>
+</ol>
+</div>
+<p>When we attend to define a principal filter in Lean, we will be required to prove that this object is a filter. The following lines are from mathlib repository, being the definition for principal filters that Lean community uses.</p>
+<div class="try-me-container">
+<p><a href="https://leanprover-community.github.io/lean-web-editor/#code=%20%20import%20data%2Eset%2Ebasic%0A%20%20open%20set%0A%20%20%0A%20%20structure%20filter%20%28X%20%3A%20Type%29%20%3A%3D%0A%20%20%28sets%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3A%20set%20%28set%20X%29%29%0A%20%20%28univ%5Fsets%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3A%20set%2Euniv%20%E2%88%88%20sets%29%0A%20%20%28sets%5Fof%5Fsuperset%20%7Bx%20y%7D%20%3A%20x%20%E2%88%88%20sets%20%E2%86%92%20x%20%E2%8A%86%20y%20%E2%86%92%20y%20%E2%88%88%20sets%29%0A%20%20%28inter%5Fsets%20%7Bx%20y%7D%20%20%20%20%20%20%20%3A%20x%20%E2%88%88%20sets%20%E2%86%92%20y%20%E2%88%88%20sets%20%E2%86%92%20x%20%E2%88%A9%20y%20%E2%88%88%20sets%29%0A%0A%20%20variable%20%7BX%20%3A%20Type%7D%0A%20%20lemma%20filter%5Feq%20%3A%20%E2%88%80%20%7Bf%20g%20%3A%20filter%20X%7D%2C%20f%2Esets%20%3D%20g%2Esets%20%E2%86%92%20f%20%3D%20g%0A%20%20%7C%20%E2%9F%A8a%2C%20%5F%2C%20%5F%2C%20%5F%E2%9F%A9%20%E2%9F%A8%2E%5F%2C%20%5F%2C%20%5F%2C%20%5F%E2%9F%A9%20rfl%20%3A%3D%20rfl%0A%0A%20%20def%20principal%20%7BX%20%3A%20Type%7D%20%28s%20%3A%20set%20X%29%20%3A%20filter%20X%20%3A%3D%0A%20%20%7B%20sets%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3A%3D%20%7Bt%20%7C%20s%20%E2%8A%86%20t%7D%2C%0A%20%20%20%20univ%5Fsets%20%20%20%20%20%20%20%20%20%3A%3D%20subset%5Funiv%20s%2C%0A%20%20%20%20sets%5Fof%5Fsuperset%20%20%3A%3D%20assume%20x%20y%20hx%20hy%2C%20subset%2Etrans%20hx%20hy%2C%0A%20%20%20%20inter%5Fsets%20%20%20%20%20%20%20%20%3A%3D%20assume%20x%20y%2C%20subset%5Finter%20%7D%0A%20%20%20%20%0A%20%20localized%20%22notation%20%60P%60%20%3A%3D%20principal%22%20in%20filter%0A%0A" class="try-me-link">Try me</a></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode lean"><code class="sourceCode leansyntax"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> principal <span class="ot">{</span>X <span class="ot">:</span> <span class="dt">Type</span><span class="ot">}</span> <span class="ot">(</span>s <span class="ot">:</span> set X<span class="ot">)</span> <span class="ot">:</span> filter X :=</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="ot">{</span> sets              := <span class="ot">{</span>t <span class="ot">|</span> s ⊆ t<span class="ot">}</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    univ<span class="ot">_</span>sets         := subset<span class="ot">_</span>univ s,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    sets<span class="ot">_</span>of<span class="ot">_</span>superset  := <span class="kw">assume</span> x y hx hy, subset<span class="ot">.</span>trans hx hy,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    inter<span class="ot">_</span>sets        := <span class="kw">assume</span> x y, subset<span class="ot">_</span>inter <span class="ot">}</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  localized <span class="st">&quot;notation `P` := principal&quot;</span> in filter</span></code></pre></div>
+</div>
+<h2 data-number="1.2" id="filter-order"><span class="header-section-number">1.2</span> Filter Order</h2>
+<p>Having the filter definition, we can define an order with filters using the regular inclusion order of set power subsets.</p>
+<p><strong>Definition 1.2.1</strong> (Filter Order). <em>Let</em> $X$ <em>be a set. We say that a filter</em> $\mathcal{F}$ <em>is finer than a filter</em> $\mathcal{V}$ <em>if</em> $\mathcal{V}\subseteq \mathcal{F}$ <em>and denoted as</em> $\mathcal{F}\leq\mathcal{V}$.</p>
+<p>After defining an order is natural to prove the type of order that it is. In this case, we will prove that this is a partial order.</p>
+<p><strong>Proposition 1.2.2</strong> <em>The filter order is a partial order.</em></p>
+<p><em>Proof</em>. To prove the statement, we will see that this relation is reflexive, antisymmetric and transitive.</p>
+<div class="roman-list">
+<ol type="1">
+<li>Giving a filter $\mathcal{F}$. It is clear that $\mathcal{F}\subseteq\mathcal{F}$ then, by definition, we have $\mathcal{F}\leq\mathcal{F}$.</li>
+<li>Giving two filters $\mathcal{F}$ and $\mathcal{V}$ satisfying $\mathcal{F}\leq \mathcal{V}$ and $\mathcal{V}\leq\mathcal{F}$. Using the order definition, we have $\mathcal{V}\subseteq\mathcal{F}$ and $\mathcal{F}\subseteq\mathcal{V}$ consequently, $\mathcal{F}=\mathcal{V}$ by the double inclusion lemma.</li>
+<li>Let three filters $\mathcal{F}$, $\mathcal{V}$ and $\mathcal{T}$ satisfying $\mathcal{F}\leq\mathcal{V}$ and $\mathcal{V}\leq\mathcal{T}$. By definition, we have $\mathcal{V}\subseteq\mathcal{F}$ and $\mathcal{T}\subseteq\mathcal{V}$. Using the partial order of subsets, we have $\mathcal{T}\subseteq \mathcal{F}$ concluding $\mathcal{F}\leq\mathcal{T}$. $\square$</li>
+</ol>
+</div>
+<p>When we attend to define an order relation in LEAN, we are required to specify the type of order together with the proof that defines the chosen order. The following lines are from the mathlib repository where this order is defined.</p>
+<div class="try-me-container">
+<p><a href="https://leanprover-community.github.io/lean-web-editor/#code=%20%20import%20data%2Eset%2Ebasic%0A%20%20open%20set%0A%20%20%0A%20%20structure%20filter%20%28X%20%3A%20Type%29%20%3A%3D%0A%20%20%28sets%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3A%20set%20%28set%20X%29%29%0A%20%20%28univ%5Fsets%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3A%20set%2Euniv%20%E2%88%88%20sets%29%0A%20%20%28sets%5Fof%5Fsuperset%20%7Bx%20y%7D%20%3A%20x%20%E2%88%88%20sets%20%E2%86%92%20x%20%E2%8A%86%20y%20%E2%86%92%20y%20%E2%88%88%20sets%29%0A%20%20%28inter%5Fsets%20%7Bx%20y%7D%20%20%20%20%20%20%20%3A%20x%20%E2%88%88%20sets%20%E2%86%92%20y%20%E2%88%88%20sets%20%E2%86%92%20x%20%E2%88%A9%20y%20%E2%88%88%20sets%29%0A%0A%20%20variable%20%7BX%20%3A%20Type%7D%0A%20%20lemma%20filter%5Feq%20%3A%20%E2%88%80%20%7Bf%20g%20%3A%20filter%20X%7D%2C%20f%2Esets%20%3D%20g%2Esets%20%E2%86%92%20f%20%3D%20g%0A%20%20%7C%20%E2%9F%A8a%2C%20%5F%2C%20%5F%2C%20%5F%E2%9F%A9%20%E2%9F%A8%2E%5F%2C%20%5F%2C%20%5F%2C%20%5F%E2%9F%A9%20rfl%20%3A%3D%20rfl%0A%0A%20%20def%20principal%20%7BX%20%3A%20Type%7D%20%28s%20%3A%20set%20X%29%20%3A%20filter%20X%20%3A%3D%0A%20%20%7B%20sets%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3A%3D%20%7Bt%20%7C%20s%20%E2%8A%86%20t%7D%2C%0A%20%20%20%20univ%5Fsets%20%20%20%20%20%20%20%20%20%3A%3D%20subset%5Funiv%20s%2C%0A%20%20%20%20sets%5Fof%5Fsuperset%20%20%3A%3D%20assume%20x%20y%20hx%20hy%2C%20subset%2Etrans%20hx%20hy%2C%0A%20%20%20%20inter%5Fsets%20%20%20%20%20%20%20%20%3A%3D%20assume%20x%20y%2C%20subset%5Finter%20%7D%0A%20%20%20%20%0A%20%20localized%20%22notation%20%60P%60%20%3A%3D%20principal%22%20in%20filter%0A%0A%20%20instance%20%3A%20partial%5Forder%20%28filter%20X%29%20%3A%3D%0A%20%20%7B%20le%20%20%20%20%20%20%20%20%20%20%20%20%3A%3D%20%CE%BB%20f%20g%2C%20%E2%88%80%20%E2%A6%83U%20%3A%20set%20X%E2%A6%84%2C%20U%20%E2%88%88%20g%2Esets%20%E2%86%92%20U%20%E2%88%88%20f%2Esets%2C%0A%20%20%20%20le%5Fantisymm%20%20%20%3A%3D%20%CE%BB%20a%20b%20h%E2%82%81%20h%E2%82%82%2C%20filter%5Feq%20%24%20subset%2Eantisymm%20h%E2%82%82%20h%E2%82%81%2C%0A%20%20%20%20le%5Frefl%20%20%20%20%20%20%20%3A%3D%20%CE%BB%20a%2C%20subset%2Erfl%2C%0A%20%20%20%20le%5Ftrans%20%20%20%20%20%20%3A%3D%20%CE%BB%20a%20b%20c%20h%E2%82%81%20h%E2%82%82%2C%20subset%2Etrans%20h%E2%82%82%20h%E2%82%81%20%7D%0A%0A" class="try-me-link">Try me</a></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode lean"><code class="sourceCode leansyntax"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>  <span class="kw">instance</span> <span class="ot">:</span> partial<span class="ot">_</span>order <span class="ot">(</span>filter X<span class="ot">)</span> :=</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="ot">{</span> le            := <span class="ot">λ</span> f g, <span class="ot">∀</span> ⦃U <span class="ot">:</span> set X⦄, U ∈ g<span class="ot">.</span>sets <span class="ot">→</span> U ∈ f<span class="ot">.</span>sets,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    le<span class="ot">_</span>antisymm   := <span class="ot">λ</span> a b h₁ h₂, filter<span class="ot">_</span>eq $ subset<span class="ot">.</span>antisymm h₂ h₁,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    le<span class="ot">_</span>refl       := <span class="ot">λ</span> a, subset<span class="ot">.</span>rfl,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    le<span class="ot">_</span>trans      := <span class="ot">λ</span> a b c h₁ h₂, subset<span class="ot">.</span>trans h₂ h₁ <span class="ot">}</span></span></code></pre></div>
+</div>
+<p>Given that definition of an order in the filter structure, can be easily proved that, given a random filter $\mathcal{F}$, it would be more finer than the filter ${X}$ (also known as the Principal filter of the total subset $X$). By proving this last statement, we are also proving that the order structure has a top element. On the following lines, the reader can see this proof in LEAN code</p>
+<div class="try-me-container">
+<p><a href="https://leanprover-community.github.io/lean-web-editor/#code=%20%20import%20data%2Eset%2Ebasic%0A%20%20open%20set%0A%20%20%0A%20%20structure%20filter%20%28X%20%3A%20Type%29%20%3A%3D%0A%20%20%28sets%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3A%20set%20%28set%20X%29%29%0A%20%20%28univ%5Fsets%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3A%20set%2Euniv%20%E2%88%88%20sets%29%0A%20%20%28sets%5Fof%5Fsuperset%20%7Bx%20y%7D%20%3A%20x%20%E2%88%88%20sets%20%E2%86%92%20x%20%E2%8A%86%20y%20%E2%86%92%20y%20%E2%88%88%20sets%29%0A%20%20%28inter%5Fsets%20%7Bx%20y%7D%20%20%20%20%20%20%20%3A%20x%20%E2%88%88%20sets%20%E2%86%92%20y%20%E2%88%88%20sets%20%E2%86%92%20x%20%E2%88%A9%20y%20%E2%88%88%20sets%29%0A%0A%20%20variable%20%7BX%20%3A%20Type%7D%0A%20%20lemma%20filter%5Feq%20%3A%20%E2%88%80%20%7Bf%20g%20%3A%20filter%20X%7D%2C%20f%2Esets%20%3D%20g%2Esets%20%E2%86%92%20f%20%3D%20g%0A%20%20%7C%20%E2%9F%A8a%2C%20%5F%2C%20%5F%2C%20%5F%E2%9F%A9%20%E2%9F%A8%2E%5F%2C%20%5F%2C%20%5F%2C%20%5F%E2%9F%A9%20rfl%20%3A%3D%20rfl%0A%0A%20%20def%20principal%20%7BX%20%3A%20Type%7D%20%28s%20%3A%20set%20X%29%20%3A%20filter%20X%20%3A%3D%0A%20%20%7B%20sets%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3A%3D%20%7Bt%20%7C%20s%20%E2%8A%86%20t%7D%2C%0A%20%20%20%20univ%5Fsets%20%20%20%20%20%20%20%20%20%3A%3D%20subset%5Funiv%20s%2C%0A%20%20%20%20sets%5Fof%5Fsuperset%20%20%3A%3D%20assume%20x%20y%20hx%20hy%2C%20subset%2Etrans%20hx%20hy%2C%0A%20%20%20%20inter%5Fsets%20%20%20%20%20%20%20%20%3A%3D%20assume%20x%20y%2C%20subset%5Finter%20%7D%0A%20%20%20%20%0A%20%20localized%20%22notation%20%60P%60%20%3A%3D%20principal%22%20in%20filter%0A%0A%20%20instance%20%3A%20partial%5Forder%20%28filter%20X%29%20%3A%3D%0A%20%20%7B%20le%20%20%20%20%20%20%20%20%20%20%20%20%3A%3D%20%CE%BB%20f%20g%2C%20%E2%88%80%20%E2%A6%83U%20%3A%20set%20X%E2%A6%84%2C%20U%20%E2%88%88%20g%2Esets%20%E2%86%92%20U%20%E2%88%88%20f%2Esets%2C%0A%20%20%20%20le%5Fantisymm%20%20%20%3A%3D%20%CE%BB%20a%20b%20h%E2%82%81%20h%E2%82%82%2C%20filter%5Feq%20%24%20subset%2Eantisymm%20h%E2%82%82%20h%E2%82%81%2C%0A%20%20%20%20le%5Frefl%20%20%20%20%20%20%20%3A%3D%20%CE%BB%20a%2C%20subset%2Erfl%2C%0A%20%20%20%20le%5Ftrans%20%20%20%20%20%20%3A%3D%20%CE%BB%20a%20b%20c%20h%E2%82%81%20h%E2%82%82%2C%20subset%2Etrans%20h%E2%82%82%20h%E2%82%81%20%7D%0A%0A%20%20instance%20%3A%20has%5Ftop%20%28filter%20X%29%20%3A%3D%20%E2%9F%A8P%20univ%E2%9F%A9%0A%0A%20%20lemma%20le%5Ftop%5Fall%20%3A%20%E2%88%80%20%28F%20%3A%20filter%20X%29%2C%20F%20%E2%89%A4%20%E2%8A%A4%20%3A%3D%0A%20%20begin%0A%20%20%20%20intros%20F%20A%20hA%2C%0A%20%20%20%20have%20%3A%20A%20%3D%20univ%2C%0A%20%20%20%20%7B%20exact%20eq%5Ftop%5Fiff%2Empr%20hA%20%7D%2C%0A%20%20%20%20rw%20this%2C%0A%20%20%20%20exact%20filter%2Euniv%5Fsets%20F%2C%0A%20%20end%0A%0A" class="try-me-link">Try me</a></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode lean"><code class="sourceCode leansyntax"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>  <span class="kw">instance</span> <span class="ot">:</span> has<span class="ot">_</span>top <span class="ot">(</span>filter X<span class="ot">)</span> := ⟨P univ⟩</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">lemma</span> le<span class="ot">_</span>top<span class="ot">_</span>all <span class="ot">:</span> <span class="ot">∀</span> <span class="ot">(</span>F <span class="ot">:</span> filter X<span class="ot">)</span>, F ≤ ⊤ :=</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">begin</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    intros F A hA,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    have <span class="ot">:</span> A <span class="ot">=</span> univ,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="ot">{</span> exact eq<span class="ot">_</span>top<span class="ot">_</span>iff<span class="ot">.</span>mpr hA <span class="ot">}</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    rw this,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    exact filter<span class="ot">.</span>univ<span class="ot">_</span>sets F,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">end</span></span></code></pre></div>
+</div>
+<p>In the ordered structure we have defined, it could be defined as well as a top element, a bottom element. The definition of this element and the consequent proof will be left as an exercise for the reader in the next section. This demonstration will be essential for the next chapter, so we highly recommend writing the LEAN proof to make the next chapter proofs coherent.</p>
+<h2 data-number="1.3" id="exercices"><span class="header-section-number">1.3</span> Exercices</h2>
+<p>This subsection aims to propose some exercises that will help the reader to test the knowledge presented above. All are written in Lean and the usual way and separated into the sections we have followed.</p>
+<h3 data-number="1.3.1" id="filter-definition-1"><span class="header-section-number">1.3.1</span> Filter definition</h3>
+<dl>
+<dt><span id="exercise:1"></span><span id="exercise:1" class="pandoc-numbering-text exercise"><strong>Exercise 1</strong></span></dt>
+<dd><p>Let $X$ be a set, a filter $\mathcal{F}$ of $X$ and two subsets $V,U \subseteq X$. The intersection of the subsets is on the filter if only if both are in the filter.</p>
+<div class="try-me-container">
+<p><a href="https://leanprover-community.github.io/lean-web-editor/#code=%20%20import%20data%2Eset%2Ebasic%0A%20%20open%20set%0A%20%20%0A%20%20structure%20filter%20%28X%20%3A%20Type%29%20%3A%3D%0A%20%20%28sets%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3A%20set%20%28set%20X%29%29%0A%20%20%28univ%5Fsets%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3A%20set%2Euniv%20%E2%88%88%20sets%29%0A%20%20%28sets%5Fof%5Fsuperset%20%7Bx%20y%7D%20%3A%20x%20%E2%88%88%20sets%20%E2%86%92%20x%20%E2%8A%86%20y%20%E2%86%92%20y%20%E2%88%88%20sets%29%0A%20%20%28inter%5Fsets%20%7Bx%20y%7D%20%20%20%20%20%20%20%3A%20x%20%E2%88%88%20sets%20%E2%86%92%20y%20%E2%88%88%20sets%20%E2%86%92%20x%20%E2%88%A9%20y%20%E2%88%88%20sets%29%0A%0A%20%20variable%20%7BX%20%3A%20Type%7D%0A%20%20lemma%20filter%5Feq%20%3A%20%E2%88%80%20%7Bf%20g%20%3A%20filter%20X%7D%2C%20f%2Esets%20%3D%20g%2Esets%20%E2%86%92%20f%20%3D%20g%0A%20%20%7C%20%E2%9F%A8a%2C%20%5F%2C%20%5F%2C%20%5F%E2%9F%A9%20%E2%9F%A8%2E%5F%2C%20%5F%2C%20%5F%2C%20%5F%E2%9F%A9%20rfl%20%3A%3D%20rfl%0A%0A%20%20def%20principal%20%7BX%20%3A%20Type%7D%20%28s%20%3A%20set%20X%29%20%3A%20filter%20X%20%3A%3D%0A%20%20%7B%20sets%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3A%3D%20%7Bt%20%7C%20s%20%E2%8A%86%20t%7D%2C%0A%20%20%20%20univ%5Fsets%20%20%20%20%20%20%20%20%20%3A%3D%20subset%5Funiv%20s%2C%0A%20%20%20%20sets%5Fof%5Fsuperset%20%20%3A%3D%20assume%20x%20y%20hx%20hy%2C%20subset%2Etrans%20hx%20hy%2C%0A%20%20%20%20inter%5Fsets%20%20%20%20%20%20%20%20%3A%3D%20assume%20x%20y%2C%20subset%5Finter%20%7D%0A%20%20%20%20%0A%20%20localized%20%22notation%20%60P%60%20%3A%3D%20principal%22%20in%20filter%0A%0A%20%20instance%20%3A%20partial%5Forder%20%28filter%20X%29%20%3A%3D%0A%20%20%7B%20le%20%20%20%20%20%20%20%20%20%20%20%20%3A%3D%20%CE%BB%20f%20g%2C%20%E2%88%80%20%E2%A6%83U%20%3A%20set%20X%E2%A6%84%2C%20U%20%E2%88%88%20g%2Esets%20%E2%86%92%20U%20%E2%88%88%20f%2Esets%2C%0A%20%20%20%20le%5Fantisymm%20%20%20%3A%3D%20%CE%BB%20a%20b%20h%E2%82%81%20h%E2%82%82%2C%20filter%5Feq%20%24%20subset%2Eantisymm%20h%E2%82%82%20h%E2%82%81%2C%0A%20%20%20%20le%5Frefl%20%20%20%20%20%20%20%3A%3D%20%CE%BB%20a%2C%20subset%2Erfl%2C%0A%20%20%20%20le%5Ftrans%20%20%20%20%20%20%3A%3D%20%CE%BB%20a%20b%20c%20h%E2%82%81%20h%E2%82%82%2C%20subset%2Etrans%20h%E2%82%82%20h%E2%82%81%20%7D%0A%0A%20%20instance%20%3A%20has%5Ftop%20%28filter%20X%29%20%3A%3D%20%E2%9F%A8P%20univ%E2%9F%A9%0A%0A%20%20lemma%20le%5Ftop%5Fall%20%3A%20%E2%88%80%20%28F%20%3A%20filter%20X%29%2C%20F%20%E2%89%A4%20%E2%8A%A4%20%3A%3D%0A%20%20begin%0A%20%20%20%20intros%20F%20A%20hA%2C%0A%20%20%20%20have%20%3A%20A%20%3D%20univ%2C%0A%20%20%20%20%7B%20exact%20eq%5Ftop%5Fiff%2Empr%20hA%20%7D%2C%0A%20%20%20%20rw%20this%2C%0A%20%20%20%20exact%20filter%2Euniv%5Fsets%20F%2C%0A%20%20end%0A%0A%20%20variable%20%7BF%20%3A%20filter%20X%7D%20%0A%0A%20%20lemma%20exercise1%20%7BV%20U%7D%20%3A%20V%20%E2%88%A9%20U%20%E2%88%88%20F%2Esets%20%E2%86%94%20V%20%E2%88%88%20F%2Esets%20%E2%88%A7%20U%20%E2%88%88%20F%2Esets%20%3A%3D%0A%20%20begin%0A%20%20%20%20sorry%0A%20%20end%0A%0A" class="try-me-link">Try me</a></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode lean skip"><code class="sourceCode leansyntax"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>  <span class="kw">variable</span> <span class="ot">{</span>F <span class="ot">:</span> filter X<span class="ot">}</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">lemma</span> exercise1 <span class="ot">{</span>V U<span class="ot">}</span> <span class="ot">:</span> V ∩ U ∈ F<span class="ot">.</span>sets ↔ V ∈ F<span class="ot">.</span>sets ∧ U ∈ F<span class="ot">.</span>sets :=</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">begin</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="er">sorry</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">end</span></span></code></pre></div>
+</div>
+</dd>
+<dt><span id="exercise:2"></span><span id="exercise:2" class="pandoc-numbering-text exercise"><strong>Exercise 2</strong></span></dt>
+<dd><p>Let $X$ be a set, a filter $\mathcal{F}$ of $X$ and two subsets $V,U \subseteq X$. If the subset $\left{ x\in X | \textup{if} x\in V\textup{ then } x\in U\right}$ is in the filter, then $U$ is in the filter if $V$ is in the filter.</p>
+<div class="try-me-container">
+<p><a href="https://leanprover-community.github.io/lean-web-editor/#code=%20%20import%20data%2Eset%2Ebasic%0A%20%20open%20set%0A%20%20%0A%20%20structure%20filter%20%28X%20%3A%20Type%29%20%3A%3D%0A%20%20%28sets%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3A%20set%20%28set%20X%29%29%0A%20%20%28univ%5Fsets%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3A%20set%2Euniv%20%E2%88%88%20sets%29%0A%20%20%28sets%5Fof%5Fsuperset%20%7Bx%20y%7D%20%3A%20x%20%E2%88%88%20sets%20%E2%86%92%20x%20%E2%8A%86%20y%20%E2%86%92%20y%20%E2%88%88%20sets%29%0A%20%20%28inter%5Fsets%20%7Bx%20y%7D%20%20%20%20%20%20%20%3A%20x%20%E2%88%88%20sets%20%E2%86%92%20y%20%E2%88%88%20sets%20%E2%86%92%20x%20%E2%88%A9%20y%20%E2%88%88%20sets%29%0A%0A%20%20variable%20%7BX%20%3A%20Type%7D%0A%20%20lemma%20filter%5Feq%20%3A%20%E2%88%80%20%7Bf%20g%20%3A%20filter%20X%7D%2C%20f%2Esets%20%3D%20g%2Esets%20%E2%86%92%20f%20%3D%20g%0A%20%20%7C%20%E2%9F%A8a%2C%20%5F%2C%20%5F%2C%20%5F%E2%9F%A9%20%E2%9F%A8%2E%5F%2C%20%5F%2C%20%5F%2C%20%5F%E2%9F%A9%20rfl%20%3A%3D%20rfl%0A%0A%20%20def%20principal%20%7BX%20%3A%20Type%7D%20%28s%20%3A%20set%20X%29%20%3A%20filter%20X%20%3A%3D%0A%20%20%7B%20sets%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3A%3D%20%7Bt%20%7C%20s%20%E2%8A%86%20t%7D%2C%0A%20%20%20%20univ%5Fsets%20%20%20%20%20%20%20%20%20%3A%3D%20subset%5Funiv%20s%2C%0A%20%20%20%20sets%5Fof%5Fsuperset%20%20%3A%3D%20assume%20x%20y%20hx%20hy%2C%20subset%2Etrans%20hx%20hy%2C%0A%20%20%20%20inter%5Fsets%20%20%20%20%20%20%20%20%3A%3D%20assume%20x%20y%2C%20subset%5Finter%20%7D%0A%20%20%20%20%0A%20%20localized%20%22notation%20%60P%60%20%3A%3D%20principal%22%20in%20filter%0A%0A%20%20instance%20%3A%20partial%5Forder%20%28filter%20X%29%20%3A%3D%0A%20%20%7B%20le%20%20%20%20%20%20%20%20%20%20%20%20%3A%3D%20%CE%BB%20f%20g%2C%20%E2%88%80%20%E2%A6%83U%20%3A%20set%20X%E2%A6%84%2C%20U%20%E2%88%88%20g%2Esets%20%E2%86%92%20U%20%E2%88%88%20f%2Esets%2C%0A%20%20%20%20le%5Fantisymm%20%20%20%3A%3D%20%CE%BB%20a%20b%20h%E2%82%81%20h%E2%82%82%2C%20filter%5Feq%20%24%20subset%2Eantisymm%20h%E2%82%82%20h%E2%82%81%2C%0A%20%20%20%20le%5Frefl%20%20%20%20%20%20%20%3A%3D%20%CE%BB%20a%2C%20subset%2Erfl%2C%0A%20%20%20%20le%5Ftrans%20%20%20%20%20%20%3A%3D%20%CE%BB%20a%20b%20c%20h%E2%82%81%20h%E2%82%82%2C%20subset%2Etrans%20h%E2%82%82%20h%E2%82%81%20%7D%0A%0A%20%20instance%20%3A%20has%5Ftop%20%28filter%20X%29%20%3A%3D%20%E2%9F%A8P%20univ%E2%9F%A9%0A%0A%20%20lemma%20le%5Ftop%5Fall%20%3A%20%E2%88%80%20%28F%20%3A%20filter%20X%29%2C%20F%20%E2%89%A4%20%E2%8A%A4%20%3A%3D%0A%20%20begin%0A%20%20%20%20intros%20F%20A%20hA%2C%0A%20%20%20%20have%20%3A%20A%20%3D%20univ%2C%0A%20%20%20%20%7B%20exact%20eq%5Ftop%5Fiff%2Empr%20hA%20%7D%2C%0A%20%20%20%20rw%20this%2C%0A%20%20%20%20exact%20filter%2Euniv%5Fsets%20F%2C%0A%20%20end%0A%0A%20%20variable%20%7BF%20%3A%20filter%20X%7D%0A%0A%20%20lemma%20exercise2%20%7BV%20U%7D%20%28h%20%3A%20%7Bx%20%7C%20x%20%E2%88%88%20V%20%E2%86%92%20x%20%E2%88%88%20U%7D%20%E2%88%88%20F%2Esets%29%20%3A%20%0A%20%20%20%20V%20%E2%88%88%20F%2Esets%20%E2%86%92%20U%20%E2%88%88%20F%2Esets%20%3A%3D%0A%20%20begin%0A%20%20%20%20sorry%0A%20%20end%0A%0A" class="try-me-link">Try me</a></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode lean skip"><code class="sourceCode leansyntax"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>  <span class="kw">variable</span> <span class="ot">{</span>F <span class="ot">:</span> filter X<span class="ot">}</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">lemma</span> exercise2 <span class="ot">{</span>V U<span class="ot">}</span> <span class="ot">(</span>h <span class="ot">:</span> <span class="ot">{</span>x <span class="ot">|</span> x ∈ V <span class="ot">→</span> x ∈ U<span class="ot">}</span> ∈ F<span class="ot">.</span>sets<span class="ot">)</span> <span class="ot">:</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    V ∈ F<span class="ot">.</span>sets <span class="ot">→</span> U ∈ F<span class="ot">.</span>sets :=</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">begin</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="er">sorry</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">end</span></span></code></pre></div>
+</div>
+</dd>
+</dl>
+<h3 data-number="1.3.2" id="filter-order-1"><span class="header-section-number">1.3.2</span> Filter Order</h3>
+<dl>
+<dt><span id="exercise:3"></span><span id="exercise:3" class="pandoc-numbering-text exercise"><strong>Exercise 3</strong></span></dt>
+<dd><p>Considering the partial order defined before, proof that exists a filter, which we will denote as $\bot$, that giving a random filter $\mathcal{F}$ of the set $X$, always satisfies $\bot\leq\mathcal{F}$.</p>
+<div class="try-me-container">
+<p><a href="https://leanprover-community.github.io/lean-web-editor/#code=%20%20import%20data%2Eset%2Ebasic%0A%20%20open%20set%0A%20%20%0A%20%20structure%20filter%20%28X%20%3A%20Type%29%20%3A%3D%0A%20%20%28sets%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3A%20set%20%28set%20X%29%29%0A%20%20%28univ%5Fsets%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3A%20set%2Euniv%20%E2%88%88%20sets%29%0A%20%20%28sets%5Fof%5Fsuperset%20%7Bx%20y%7D%20%3A%20x%20%E2%88%88%20sets%20%E2%86%92%20x%20%E2%8A%86%20y%20%E2%86%92%20y%20%E2%88%88%20sets%29%0A%20%20%28inter%5Fsets%20%7Bx%20y%7D%20%20%20%20%20%20%20%3A%20x%20%E2%88%88%20sets%20%E2%86%92%20y%20%E2%88%88%20sets%20%E2%86%92%20x%20%E2%88%A9%20y%20%E2%88%88%20sets%29%0A%0A%20%20variable%20%7BX%20%3A%20Type%7D%0A%20%20lemma%20filter%5Feq%20%3A%20%E2%88%80%20%7Bf%20g%20%3A%20filter%20X%7D%2C%20f%2Esets%20%3D%20g%2Esets%20%E2%86%92%20f%20%3D%20g%0A%20%20%7C%20%E2%9F%A8a%2C%20%5F%2C%20%5F%2C%20%5F%E2%9F%A9%20%E2%9F%A8%2E%5F%2C%20%5F%2C%20%5F%2C%20%5F%E2%9F%A9%20rfl%20%3A%3D%20rfl%0A%0A%20%20def%20principal%20%7BX%20%3A%20Type%7D%20%28s%20%3A%20set%20X%29%20%3A%20filter%20X%20%3A%3D%0A%20%20%7B%20sets%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3A%3D%20%7Bt%20%7C%20s%20%E2%8A%86%20t%7D%2C%0A%20%20%20%20univ%5Fsets%20%20%20%20%20%20%20%20%20%3A%3D%20subset%5Funiv%20s%2C%0A%20%20%20%20sets%5Fof%5Fsuperset%20%20%3A%3D%20assume%20x%20y%20hx%20hy%2C%20subset%2Etrans%20hx%20hy%2C%0A%20%20%20%20inter%5Fsets%20%20%20%20%20%20%20%20%3A%3D%20assume%20x%20y%2C%20subset%5Finter%20%7D%0A%20%20%20%20%0A%20%20localized%20%22notation%20%60P%60%20%3A%3D%20principal%22%20in%20filter%0A%0A%20%20instance%20%3A%20partial%5Forder%20%28filter%20X%29%20%3A%3D%0A%20%20%7B%20le%20%20%20%20%20%20%20%20%20%20%20%20%3A%3D%20%CE%BB%20f%20g%2C%20%E2%88%80%20%E2%A6%83U%20%3A%20set%20X%E2%A6%84%2C%20U%20%E2%88%88%20g%2Esets%20%E2%86%92%20U%20%E2%88%88%20f%2Esets%2C%0A%20%20%20%20le%5Fantisymm%20%20%20%3A%3D%20%CE%BB%20a%20b%20h%E2%82%81%20h%E2%82%82%2C%20filter%5Feq%20%24%20subset%2Eantisymm%20h%E2%82%82%20h%E2%82%81%2C%0A%20%20%20%20le%5Frefl%20%20%20%20%20%20%20%3A%3D%20%CE%BB%20a%2C%20subset%2Erfl%2C%0A%20%20%20%20le%5Ftrans%20%20%20%20%20%20%3A%3D%20%CE%BB%20a%20b%20c%20h%E2%82%81%20h%E2%82%82%2C%20subset%2Etrans%20h%E2%82%82%20h%E2%82%81%20%7D%0A%0A%20%20instance%20%3A%20has%5Ftop%20%28filter%20X%29%20%3A%3D%20%E2%9F%A8P%20univ%E2%9F%A9%0A%0A%20%20lemma%20le%5Ftop%5Fall%20%3A%20%E2%88%80%20%28F%20%3A%20filter%20X%29%2C%20F%20%E2%89%A4%20%E2%8A%A4%20%3A%3D%0A%20%20begin%0A%20%20%20%20intros%20F%20A%20hA%2C%0A%20%20%20%20have%20%3A%20A%20%3D%20univ%2C%0A%20%20%20%20%7B%20exact%20eq%5Ftop%5Fiff%2Empr%20hA%20%7D%2C%0A%20%20%20%20rw%20this%2C%0A%20%20%20%20exact%20filter%2Euniv%5Fsets%20F%2C%0A%20%20end%0A%0A%20%20instance%20%3A%20has%5Fbot%20%28filter%20X%29%20%3A%3D%20sorry%0A%0A%20%20lemma%20bot%5Fle%5Fall%20%3A%20%E2%88%80%20%28F%20%3A%20filter%20X%29%2C%20%E2%8A%A5%20%E2%89%A4%20F%20%3A%3D%0A%20%20begin%0A%20%20%20%20sorry%0A%20%20end%0A%0A" class="try-me-link">Try me</a></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode lean"><code class="sourceCode leansyntax"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>  <span class="kw">instance</span> <span class="ot">:</span> has<span class="ot">_</span>bot <span class="ot">(</span>filter X<span class="ot">)</span> := <span class="er">sorry</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">lemma</span> bot<span class="ot">_</span>le<span class="ot">_</span>all <span class="ot">:</span> <span class="ot">∀</span> <span class="ot">(</span>F <span class="ot">:</span> filter X<span class="ot">)</span>, ⊥ ≤ F :=</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">begin</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="er">sorry</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">end</span></span></code></pre></div>
+</div>
+</dd>
+</dl> 
+      
+      
+    </div>
+  </div>
+  <!-- Debug -->
+  <style>
+    .katex-version {display: none;}
+    .katex-version::after {content:"0.10.2 or earlier";}
+  </style>
+  <span class="katex">
+    <span class="katex-mathml">The KaTeX stylesheet is not loaded!</span>
+    <span class="katex-version rule">KaTeX stylesheet version: </span>
+  </span>
+</body>
+
+</html>

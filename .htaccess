@@ -1,0 +1,9 @@
+#Source: https://stackoverflow.com/questions/39078338/remove-html-extension-using-htaccess-file
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+[^/])$ $1.html
+# Remove trailing slash if the URL the url doesn't match a directory:
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+)/$ $1 [R,L]

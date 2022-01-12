@@ -1,0 +1,180 @@
+* {
+  box-sizing: border-box;
+}
+
+header {
+  margin-top: 5px;
+  margin: 20px;
+  margin-bottom: 30px;
+  padding-top: 30px;
+
+  text-align: center;
+  background-color: #b5ddb3;
+
+  height:150px;
+  border-radius: 25px;
+  box-sizing: border-box; 
+}
+
+/* Column container */
+.row {  
+  display: flex;
+  flex-wrap: wrap;
+}
+/* Create two unequal columns that sits next to each other */
+/* Sidebar/right column */
+.side {
+  width: 20%;
+}
+/* Main column */
+.main {
+  padding: 20px;
+  padding-left: 0px;
+  width: 65%;
+  margin-right: auto;
+  text-align: justify;
+}
+/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 700px) {
+  .row, .navbar {   
+    flex-direction: column;
+  }
+  .main, .side {
+    padding: 15px;
+    margin: none;
+  }
+}
+
+.title{
+    text-align:center
+}
+.center{
+	display: block;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.square {
+  display: block; 
+  width: 80%;
+  background-color: lightblue;
+  padding: 10px;
+  padding-left: 12px;
+  margin: 10px 10px;
+  border: 2px solid #73AD21;
+  border-radius: 25px;
+}
+
+ul li {
+  margin-top: 10px;
+}
+
+.try-me-container {
+  border: 1px solid #ccc;
+  background-color: #eee;
+  border-radius: 5px;
+  padding-left: 2%;
+  margin: 3%;
+}
+
+.try-me-link {
+  text-decoration: none;
+  padding: 2px;
+  border-radius: 5px;
+  margin-right: 5%;
+  float: right;
+} 
+
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+@media (min-width: 320px) and (max-width: 480px) {
+   .main {
+     width: 300px;
+   }
+   header {
+     border-radius: 5px;
+     padding: 0px;
+     margin: 0px;
+     padding-top: 10px;
+   }
+   *{
+     margin: 0px;
+     padding: 5px;
+   }
+   .row, .navbar {   
+    flex-direction: column;
+    }
+   /* CSS */
+   .square-group div {
+     width: 100%;
+   }
+}
+
+/* roman-list style 
+  (i) First
+  (ii) Second
+  (iii) Third
+*/
+div.roman-list ol {
+  counter-reset: roman;
+}
+div.roman-list ol > li:before {
+  counter-increment: roman;
+  content:"(" counter(roman, lower-roman)") "
+}
+div.roman-list ol li {
+  list-style: none;
+  position: relative;
+}
+
+div.roman-list ol > li::before {
+  position: relative;
+  left: -0.5em;  /* adjust for distance of the counter */
+  width: 2em;
+  text-align: right;
+  display: inline-block;
+}
+
+/* alpha-list style 
+  (a) First
+  (b) Second
+  (c) Third
+*/
+div.alpha-list ol {
+  counter-reset: alpha
+}
+div.alpha-list ol li {
+  list-style: none;
+  position: relative;
+}
+div.alpha-list ol > li:before {
+  counter-increment: alpha;
+  content:"(" counter(alpha, lower-alpha)") "
+}
+
+#TOC ul {
+  counter-reset: item
+}
+
+#TOC li {
+  display: block
+}
+
+#TOC li:before {
+  content: counters(item, ".")" ";
+  counter-increment: item;
+}
+
+.toc-section-number {
+  display: none;
+}
+
+/* Theorems, Definitions, etc. */
+
+dd {
+  margin: 0;
+}
+
+dt, dd, dd p { display: inline; }
