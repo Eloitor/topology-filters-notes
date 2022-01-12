@@ -1,0 +1,4 @@
+input-files:
+- src/definitions.md
+- src/structures.md
+#- src/comment.md

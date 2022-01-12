@@ -1,8 +1,8 @@
-#### CONFIGURATION ####
 base_url = "https://eloitor.github.io/topology-filters-notes/"
 
-# Markdown files to include in the table of contents (in order)
-content_files = src/definitions.md src/structures.md
+# read file paths from order.yaml
+ordered_files_md = $(shell grep -v '^#' order.yaml | tail -n +2 | sed 's/^- //' )
+ordered_files_comma_separated = $(shell echo ${ordered_files_md} | sed 'N;s/\n/,/' | sed 's/ /,/g')
 
 ##### Aviable targets to build #####
 .PHONY: all clean serve docker \
@@ -65,18 +65,18 @@ web/%: src/%
 	cp $< $@
 
 # Generate the table of contents
-content_files_comma_separated = $(shell echo $(content_files) | sed 's/ /,/g')
-templates/toc.html: $(content_files)
+templates/toc.html: $(ordered_files_md)
 	mkdir -p web
 
 	pandoc -f markdown+pipe_tables-tex_math_dollars-raw_tex \
-	--toc --toc-depth=2 --number-sections --file-scope \
-	-t html4 -s $(content_files) > toc-tmp.html
+	--toc --toc-depth=2 --number-sections --file-scope -s \
+	-t html4 \
+	--defaults=order.yaml > toc-tmp.html
 	
 	pandoc -M base_url="$(base_url)" \
 	 -F pandoc_filters/fixtoc.py \
 	 -s -f html -o templates/toc.html \
-	 -M files=$(content_files_comma_separated) \
+	 -M files=$(ordered_files_comma_separated) \
 	  toc-tmp.html
 
 	# Remove everything but the table of contents
